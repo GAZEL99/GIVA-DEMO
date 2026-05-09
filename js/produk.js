@@ -720,7 +720,7 @@ const semuaProduk = {
     packages: [
       
       {
-        name: "ChatGPT 1 Bulan Plus Fullgar",
+        name: "ChatGPT 3 Hari Garansi ",
         price: 20000,
         duration: "1 BULAN"
       }
