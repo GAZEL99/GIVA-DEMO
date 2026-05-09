@@ -295,7 +295,7 @@ window.productData = {
     // 🔥 AI
     {
       id: 23,
-      name: "ChatGPT Plus",
+      name: "ChatGPT ",
       category: "AI",
       price: 20000,
       originalPrice: 60000,
@@ -305,7 +305,7 @@ window.productData = {
       isFlashSale: true,
       pageUrl: "pages/product.html?product=ChatGPT",
       description: "ChatGPT dengan akses premium untuk AI",
-      features: ["1 Tahun", "Nogar", "GPT-4 Access"],
+      features: ["],
       stock: 90,
       sold: 1200
     },
