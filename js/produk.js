@@ -843,7 +843,7 @@ function getPopularProducts() {
   const popularProducts = [
     semuaProduk["Netflix"],
     semuaProduk["Canva"],
-    semuaProduk["ht Motion"],
+    semuaProduk["Alight Motion"],
     semuaProduk["Vidio"],
     semuaProduk["Youtube"],
     semuaProduk["ChatGPT"],
