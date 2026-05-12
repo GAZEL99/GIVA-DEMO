@@ -1,0 +1,2746 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="GivaStore App - Premium Digital Products & Social Media Services">
+  <title>GivaStore App - Premium Digital Services</title>
+    <link rel="icon" href="image/logo.jpg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ==================== BLUE GRADIENT THEME (SAME AS index.html) ==================== */
+    :root {
+      --primary: #0A1931;
+      --primary-alt: #152C5B;
+      --accent: #1E40AF;
+      --accent-light: #3B82F6;
+      --accent-alt: #60A5FA;
+      --secondary: #06B6D4;
+      --secondary-alt: #0EA5E9;
+      --tertiary: #8B5CF6;
+      --text-dark: #0F172A;
+      --text: #1F2937;
+      --text-light: #64748B;
+      --light: #FFFFFF;
+      --light-gray: #F8FAFC;
+      --gray: #E2E8F0;
+      --border: #0F172A;
+      --shadow: 4px 4px 0px var(--border);
+      --shadow-sm: 2px 2px 0px var(--border);
+      --shadow-lg: 6px 6px 0px var(--border);
+      --shadow-blue: 4px 4px 0px rgba(30, 64, 175, 0.2);
+      --radius: 8px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --error: #EF4444;
+      --warning: #F59E0B;
+      --success: #10B981;
+      
+      /* Blue Gradients */
+      --gradient-primary: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+      --gradient-secondary: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 100%);
+      --gradient-dark: linear-gradient(135deg, #0A1931 0%, #152C5B 100%);
+      --gradient-light: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+      --gradient-accent: linear-gradient(135deg, #1E40AF 0%, #8B5CF6 100%);
+    }
+
+    /* ==================== BASE STYLES - MOBILE FIRST ==================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      touch-action: manipulation;
+    }
+
+    /* Mobile Font Sizes */
+    @media (max-width: 768px) {
+      html {
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      html {
+        font-size: 14px;
+      }
+    }
+
+    body {
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: var(--transition);
+      border: 3px solid var(--border);
+      padding-top: 60px; /* Reduced for mobile */
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+      hyphens: auto;
+    }
+
+    /* Simpler background for mobile performance */
+    @media (min-width: 769px) {
+      body {
+        background-image: 
+          linear-gradient(90deg, rgba(30, 64, 175, 0.03) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(30, 64, 175, 0.03) 1px, transparent 1px),
+          radial-gradient(circle at 10% 20%, rgba(30, 64, 175, 0.05) 0%, transparent 25%),
+          radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 25%);
+        background-size: 50px 50px, 50px 50px, auto, auto;
+        border-width: 6px;
+        padding-top: 80px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        border-width: 3px;
+        padding-top: 60px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        border-width: 2px;
+        padding-top: 55px;
+      }
+    }
+
+    /* ==================== SIMPLE PROMO POPUP STYLES 9:16 - BESAR ==================== */
+    .promo-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 25, 49, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+      animation: fadeIn 0.3s ease-out;
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+    }
+
+    .promo-popup.active {
+      display: flex;
+    }
+
+    .promo-popup-content {
+      background: transparent;
+      border-radius: var(--radius);
+      overflow: hidden;
+      max-width: 450px; /* DIUBAH: dari 320px menjadi 450px (lebih besar) */
+      width: 100%;
+      position: relative;
+      animation: popupSlideUp 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    @media (max-width: 768px) {
+      .promo-popup-content {
+        max-width: 400px; /* DIUBAH: untuk tablet */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .promo-popup-content {
+        max-width: 380px; /* DIUBAH: dari 280px menjadi 380px */
+      }
+    }
+
+    @media (max-width: 360px) {
+      .promo-popup-content {
+        max-width: 320px; /* DIUBAH: dari 250px menjadi 320px */
+      }
+    }
+
+    .promo-popup-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px; /* DIUBAH: dari 32px menjadi 36px */
+      height: 36px; /* DIUBAH: dari 32px menjadi 36px */
+      background: var(--light);
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      z-index: 10;
+      font-size: 1rem; /* DIUBAH: dari 0.9rem menjadi 1rem */
+      font-weight: 800;
+      color: var(--text-dark);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .promo-popup-close:hover {
+      background: var(--accent);
+      color: white;
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    .promo-popup-image {
+      width: 100%;
+      height: 0;
+      padding-bottom: 177.78%; /* 16:9 = 56.25%, 9:16 = 177.78% */
+      overflow: hidden;
+      border-radius: var(--radius);
+      position: relative;
+      box-shadow: var(--shadow-lg);
+      border: 3px solid var(--border);
+    }
+
+    .promo-popup-image img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .promo-popup-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .promo-popup-button {
+      position: absolute;
+      bottom: 20px; /* DIUBAH: dari 15px menjadi 20px */
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 25px; /* DIUBAH: dari 10px 20px menjadi 12px 25px */
+      background: var(--gradient-primary);
+      color: white;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-weight: 800;
+      font-size: 1rem; /* DIUBAH: dari 0.9rem menjadi 1rem */
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px; /* DIUBAH: dari 6px menjadi 8px */
+      box-shadow: var(--shadow);
+      font-family: 'Space Grotesk', sans-serif;
+      min-width: 180px; /* DIUBAH: dari 160px menjadi 180px */
+      text-align: center;
+      z-index: 5;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 480px) {
+      .promo-popup-button {
+        padding: 10px 20px; /* DIUBAH: dari 8px 16px menjadi 10px 20px */
+        font-size: 0.9rem; /* DIUBAH: dari 0.8rem menjadi 0.9rem */
+        min-width: 160px; /* DIUBAH: dari 140px menjadi 160px */
+        bottom: 15px; /* DIUBAH: dari 12px menjadi 15px */
+      }
+    }
+
+    .promo-popup-button:hover {
+      background: var(--gradient-accent);
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* ==================== NAVBAR ==================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--light);
+      background-image: var(--gradient-light);
+      border-bottom: 3px solid var(--border);
+      z-index: 1000;
+      padding: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    @media (min-width: 769px) {
+      .navbar {
+        height: 80px;
+        border-bottom-width: 4px;
+      }
+      
+      .navbar.scrolled {
+        height: 70px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        height: 55px;
+        border-bottom-width: 2px;
+      }
+    }
+
+    .nav-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      overflow: visible;
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-container {
+        padding: 0 10px;
+      }
+    }
+
+    /* ==================== LOGO ==================== */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      position: relative;
+      z-index: 2;
+      min-width: 120px;
+      max-width: 180px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 360px) {
+      .logo {
+        min-width: 100px;
+      }
+    }
+
+    .logo-image-container {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transform: rotate(-5deg);
+      transition: var(--transition);
+      overflow: hidden;
+      background: transparent;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 769px) {
+      .logo-image-container {
+        width: 50px;
+        height: 50px;
+        border-width: 3px;
+        border-radius: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-image-container {
+        width: 35px;
+        height: 35px;
+        border-width: 2px;
+      }
+    }
+
+    .logo-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+      padding: 2px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .logo-main {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--border);
+      line-height: 1;
+      letter-spacing: -0.3px;
+      position: relative;
+      font-family: 'Space Grotesk', sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (min-width: 769px) {
+      .logo-main {
+        font-size: 1.4rem;
+        letter-spacing: -0.5px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-main {
+        font-size: 1.1rem;
+        letter-spacing: -0.2px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .logo-main {
+        font-size: 1rem;
+      }
+    }
+
+    .logo-main span {
+      color: var(--accent);
+    }
+
+    .logo-sub {
+      font-size: 0.6rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-top: 2px;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (min-width: 769px) {
+      .logo-sub {
+        font-size: 0.7rem;
+        margin-top: 3px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-sub {
+        font-size: 0.55rem;
+        letter-spacing: 0.8px;
+      }
+    }
+
+    /* ==================== MOBILE NAVIGATION ==================== */
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--border);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.5rem 0.9rem;
+      position: relative;
+      transition: var(--transition);
+      border-radius: 6px;
+      background: transparent;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 769px) {
+      .nav-link {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+        gap: 8px;
+      }
+    }
+
+    .nav-link:hover {
+      background: var(--gradient-primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .nav-link.active {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Mobile Menu Button */
+    .mobile-toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--border);
+      background: var(--gradient-primary);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      border-radius: 6px;
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1001;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-toggle {
+        display: flex;
+        right: 12px;
+      }
+      
+      .nav-container {
+        position: relative;
+        justify-content: flex-start;
+        padding-right: 60px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .mobile-toggle {
+        width: 36px;
+        height: 36px;
+        right: 10px;
+      }
+      
+      .nav-container {
+        padding-right: 50px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .mobile-toggle {
+        width: 34px;
+        height: 34px;
+        right: 8px;
+      }
+      
+      .nav-container {
+        padding-right: 45px;
+      }
+    }
+
+    .mobile-toggle i {
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: var(--light);
+      background-image: var(--gradient-light);
+      border-bottom: 3px solid var(--border);
+      z-index: 999;
+      padding: 15px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 4px 0px var(--border);
+      max-height: calc(100vh - 60px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      overflow: hidden;
+    }
+
+    @media (min-width: 769px) {
+      .mobile-menu {
+        top: 80px;
+        max-height: calc(100vh - 80px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .mobile-menu {
+        top: 55px;
+        max-height: calc(100vh - 55px);
+        padding: 12px;
+      }
+    }
+
+    .mobile-menu.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .mobile-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.9rem 1rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      transition: var(--transition);
+      background: var(--light);
+      font-size: 0.9rem;
+      -webkit-tap-highlight-color: transparent;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 480px) {
+      .mobile-link {
+        padding: 0.8rem 0.9rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    .mobile-link:hover,
+    .mobile-link.active {
+      background: var(--gradient-primary);
+      color: white;
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      background: var(--gradient-dark);
+      border-top: 3px solid var(--border);
+      padding: 40px 15px 20px;
+      margin-top: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 769px) {
+      .footer {
+        border-top-width: 4px;
+        padding: 60px 20px 30px;
+        margin-top: 50px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer {
+        padding: 30px 12px 15px;
+        margin-top: 30px;
+      }
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    .footer-logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .footer-logo-image-container {
+      position: relative;
+      width: 35px;
+      height: 35px;
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transform: rotate(-5deg);
+      transition: var(--transition);
+      overflow: hidden;
+      background: transparent;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 769px) {
+      .footer-logo-image-container {
+        width: 40px;
+        height: 40px;
+        border-width: 3px;
+      }
+    }
+
+    .footer-logo-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-logo-main {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: white;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .footer-logo-sub {
+      font-size: 0.6rem;
+      color: var(--accent-alt);
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-top: 2px;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-about {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.5;
+      margin-bottom: 15px;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    @media (min-width: 769px) {
+      .footer-about {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+    }
+
+    .footer-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: white;
+      margin-bottom: 15px;
+      position: relative;
+      padding-bottom: 8px;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    @media (min-width: 769px) {
+      .footer-title {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+      }
+    }
+
+    .footer-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    @media (min-width: 769px) {
+      .footer-title::after {
+        width: 40px;
+        height: 3px;
+      }
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-link {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      padding: 4px 0;
+      -webkit-tap-highlight-color: transparent;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    @media (min-width: 769px) {
+      .footer-link {
+        font-size: 0.95rem;
+        gap: 10px;
+      }
+    }
+
+    .footer-link:hover {
+      color: var(--accent-alt);
+      transform: translateX(5px);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      justify-content: flex-start;
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--light);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    @media (min-width: 769px) {
+      .footer-social a {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+      }
+    }
+
+    .footer-social a:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow);
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 30px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.8rem;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    @media (min-width: 769px) {
+      .footer-bottom {
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top-width: 2px;
+        font-size: 0.9rem;
+      }
+    }
+
+    .payment-methods {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .payment-method {
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: var(--light);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      color: var(--text-dark);
+      font-weight: 800;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    @media (min-width: 769px) {
+      .payment-method {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* ==================== WHATSAPP FLOAT BUTTON ==================== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background: #25D366;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 3px 10px rgba(37, 211, 102, 0.3);
+      z-index: 998;
+      text-decoration: none;
+      transition: var(--transition);
+      border: 2px solid white;
+      -webkit-tap-highlight-color: transparent;
+      min-width: 44px;
+      min-height: 44px;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 769px) {
+      .whatsapp-float {
+        width: 56px;
+        height: 56px;
+        font-size: 1.75rem;
+        bottom: 20px;
+        right: 20px;
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+      }
+    }
+
+    @media (max-width: 360px) {
+      .whatsapp-float {
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+    }
+
+    /* ==================== CONTENT STYLES ==================== */
+    /* Carousel */
+    .carousel-container {
+      margin: 30px auto 20px;
+      padding: 0 15px;
+      max-width: 1200px;
+      overflow: hidden;
+    }
+
+    @media (min-width: 769px) {
+      .carousel-container {
+        margin: 40px auto 30px;
+        padding: 0 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .carousel-container {
+        margin: 20px auto 15px;
+        padding: 0 12px;
+      }
+    }
+
+    .carousel-wrapper {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 3px solid var(--border);
+      background: var(--light);
+    }
+
+    @media (min-width: 769px) {
+      .carousel-wrapper {
+        border-width: 4px;
+        border-radius: calc(var(--radius) + 4px);
+        box-shadow: var(--shadow-lg);
+      }
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      height: 160px;
+    }
+
+    @media (min-width: 768px) {
+      .carousel {
+        height: 200px;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .carousel {
+        height: 250px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .carousel {
+        height: 300px;
+      }
+    }
+
+    .carousel-slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      height: 100%;
+      width: 100%;
+    }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+      height: 100%;
+    }
+
+    .carousel-link {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
+    .carousel-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 10px;
+    }
+
+    .carousel-btn {
+      background: var(--light);
+      border: 2px solid var(--border);
+      color: var(--text-dark);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      font-size: 0.9rem;
+      font-weight: bold;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    @media (min-width: 769px) {
+      .carousel-btn {
+        width: 40px;
+        height: 40px;
+        border-width: 3px;
+        font-size: 1rem;
+      }
+    }
+
+    .carousel-btn:hover {
+      background: var(--gradient-primary);
+      color: white;
+      transform: translate(-2px, -2px);
+    }
+
+    .carousel-indicators {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .carousel-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--light);
+      border: 2px solid var(--border);
+      opacity: 0.7;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    @media (min-width: 769px) {
+      .carousel-indicator {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    .carousel-indicator.active {
+      opacity: 1;
+      transform: scale(1.2);
+      background: var(--accent);
+    }
+
+    /* Flash Sale */
+    .flashsale-container {
+      margin: 30px auto;
+      max-width: 1200px;
+      padding: 0 15px;
+      overflow: hidden;
+    }
+
+    .flashsale-card {
+      background: var(--light);
+      border: 3px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .flashsale-header {
+      padding: 15px;
+      background: var(--gradient-dark);
+      color: white;
+      border-bottom: 3px solid var(--border);
+    }
+
+    .flashsale-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .flashsale-title-text {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .countdown-timer {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 700;
+    }
+
+    .countdown-unit {
+      display: flex;
+      height: 28px;
+      width: 28px;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      font-weight: 800;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .countdown-unit.pulse {
+      animation: countdownPulse 1s infinite;
+    }
+
+    .flashsale-subtitle {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      font-weight: 600;
+    }
+
+    .marquee-container {
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      padding: 15px;
+      background: var(--light-gray);
+    }
+
+    .marquee-content {
+      display: flex;
+      gap: 15px;
+      animation: marquee 25s linear infinite;
+    }
+
+    .flashsale-item {
+      width: 200px;
+      flex-shrink: 0;
+      background: var(--light);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 15px;
+      transition: var(--transition);
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: visible;
+    }
+
+    .flashsale-item:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: var(--shadow);
+    }
+
+    .flashsale-item-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .flashsale-item-image {
+      width: 50px;
+      height: 50px;
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+    }
+
+    .flashsale-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .flashsale-item-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .flashsale-item-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .flashsale-item-original-price {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      text-decoration: line-through;
+      font-weight: 600;
+    }
+
+    .flashsale-item-price {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 800;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .flashsale-buy-button {
+      margin-top: 10px;
+      padding: 8px;
+      background: var(--gradient-primary);
+      color: white;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-weight: 800;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      box-shadow: var(--shadow-sm);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .flashsale-buy-button:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow);
+      background: var(--gradient-accent);
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 60px;
+      height: 60px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid var(--border);
+      transform: rotate(15deg);
+      border-radius: 50%;
+    }
+
+    .discount-text {
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 800;
+      transform: rotate(-15deg);
+      text-align: center;
+    }
+
+    /* Popular Products */
+    .popular-container {
+      margin: 40px auto;
+      max-width: 1200px;
+      padding: 0 15px;
+      overflow: hidden;
+    }
+
+    .popular-header {
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .popular-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .popular-subtitle {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .popular-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    @media (min-width: 768px) {
+      .popular-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .popular-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .popular-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .popular-item {
+      background: var(--light);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 15px;
+      transition: var(--transition);
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .popular-item:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: var(--shadow);
+    }
+
+    .popular-item-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .popular-item-image {
+      width: 60px;
+      height: 60px;
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+      border: 2px solid var(--border);
+    }
+
+    .popular-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .popular-item-details {
+      width: 100%;
+    }
+
+    .popular-item-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.3;
+      overflow-wrap: break-word;
+    }
+
+    .popular-item-buy-button {
+      width: 100%;
+      padding: 8px;
+      background: var(--gradient-primary);
+      color: white;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: block;
+      box-shadow: var(--shadow-sm);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .popular-item-buy-button:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow);
+      background: var(--gradient-accent);
+    }
+
+    /* Category Tabs */
+    .category-tabs-container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 15px;
+      overflow: hidden;
+    }
+
+    .category-tabs {
+      display: flex;
+      overflow-x: auto;
+      background: var(--light);
+      padding: 15px;
+      gap: 10px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 3px solid var(--border);
+      scrollbar-width: thin;
+    }
+
+    .category-tabs::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .category-tabs::-webkit-scrollbar-track {
+      background: var(--light-gray);
+      border: 2px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .category-tabs::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border: 2px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .category-tab {
+      padding: 8px 16px;
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 800;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      color: var(--text);
+      font-size: 0.85rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .category-tab.active {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: var(--shadow);
+      transform: translate(-2px, -2px);
+    }
+
+    .category-tab:hover {
+      background: var(--gradient-primary);
+      color: white;
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow);
+    }
+
+    /* Product Grid */
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 40px 0 25px;
+      position: relative;
+      padding-bottom: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+      padding: 0 15px;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 0 20px;
+        margin-bottom: 60px;
+      }
+    }
+
+    /* Product Card */
+    .product-card {
+      background: var(--light);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+      min-height: 250px;
+    }
+
+    .product-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .product-title {
+      text-align: center;
+      padding: 15px 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text);
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      line-height: 1.4;
+      border-bottom: 2px solid var(--border);
+      margin: 0;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+    }
+
+    /* Buy Button */
+    .buy-button {
+      display: block;
+      text-align: center;
+      background: var(--gradient-primary);
+      color: white;
+      padding: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: var(--transition);
+      border-top: 2px solid var(--border);
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      font-size: 0.9rem;
+      margin-top: auto;
+      font-family: 'Space Grotesk', sans-serif;
+      box-shadow: inset 0 -4px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .buy-button::after {
+      content: '→';
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: var(--transition);
+    }
+
+    .buy-button:hover {
+      background: var(--gradient-accent);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: inset 0 -6px 0px rgba(0, 0, 0, 0.2);
+      padding-right: 35px;
+    }
+
+    .buy-button:hover::after {
+      right: 12px;
+    }
+
+    /* Loading & Error States */
+    .loading {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+      color: var(--text-light);
+      font-size: 0.9rem;
+      gap: 1rem;
+      border: 2px solid var(--border);
+      padding: 2rem;
+      background: var(--light);
+      box-shadow: var(--shadow-sm);
+      border-radius: var(--radius);
+    }
+
+    .loading i {
+      font-size: 2rem;
+      animation: spin 1s linear infinite;
+      border: 2px solid var(--border);
+      padding: 1rem;
+      border-radius: 50%;
+    }
+
+    .error-message {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+      border: 2px solid var(--border);
+      background: var(--light);
+      box-shadow: var(--shadow-sm);
+      border-radius: var(--radius);
+    }
+
+    .error-message i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--error);
+      border: 2px solid var(--border);
+      padding: 1rem;
+      border-radius: 50%;
+    }
+
+    /* ==================== ANIMATIONS ==================== */
+    @keyframes countdownPulse {
+      0%, 100% {
+        transform: scale(1);
+        background-color: white;
+      }
+      50% {
+        transform: scale(1.05);
+        background-color: var(--accent);
+        color: white;
+      }
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes popupSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    /* Utility Classes */
+    .text-overflow-safe {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Simple Popup Promo 9:16 - BESAR -->
+  <div class="promo-popup" id="promoPopup">
+    <div class="promo-popup-content">
+      <button class="promo-popup-close" id="promoClose" aria-label="Close popup">
+        <i class="fas fa-times"></i>
+      </button>
+      
+      <div class="promo-popup-image">
+        <img src="image/popup.jpg" alt="Promo Suntik Sosmed" 
+             onerror="this.src='https://via.placeholder.com/450x800/1E40AF/FFFFFF?text=Promo+Suntik+Sosmed'; this.style.objectFit='cover';">
+        <a href="https://givasmm.web.id" target="_blank" class="promo-popup-button">
+          <i class="fas fa-rocket"></i> SUNTIK SOSMED SEKARANG!!
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <div class="logo-image-container">
+          <img src="../image/logo.jpg" alt="GivaStore Logo" class="logo-image" 
+               onerror="this.src='https://via.placeholder.com/40x40/1E40AF/FFFFFF?text=GS'; this.style.objectFit='cover';">
+        </div>
+        <div class="logo-text">
+          <div class="logo-main">GIVA<span>STORE</span></div>
+          <div class="logo-sub">APP PREMS</div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="nav-menu">
+        <a href="#" class="nav-link active">
+          <i class="fas fa-shopping-cart"></i>
+          <span>Products</span>
+        </a>
+        <a href="https://givasmm.web.id" target="_blank" class="nav-link">
+          <i class="fas fa-rocket"></i>
+          <span>Suntik Sosmed</span>
+        </a>
+        <a href="kontak.html" class="nav-link">
+          <i class="fas fa-envelope"></i>
+          <span>Contact</span>
+        </a>
+        <a href="https://whatsapp.com/channel/0029Vb7Ff3HAu3aNjiRSIw2g" target="_blank" class="nav-link">
+          <i class="fas fa-star"></i>
+          <span>Testimoni</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" class="mobile-link active">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Products</span>
+    </a>
+    <a href="https://givasmm.web.id" target="_blank" class="mobile-link">
+      <i class="fas fa-rocket"></i>
+      <span>Suntik Sosmed</span>
+    </a>
+    <a href="kontak.html" class="mobile-link">
+      <i class="fas fa-envelope"></i>
+      <span>Contact</span>
+    </a>
+    <a href="caraorder.html" class="mobile-link">
+      <i class="fas fa-question-circle"></i>
+      <span>How to Order</span>
+    </a>
+    <a href="https://whatsapp.com/channel/0029Vb7Ff3HAu3aNjiRSIw2g" target="_blank" class="mobile-link">
+      <i class="fas fa-star"></i>
+      <span>Testimoni</span>
+    </a>
+  </div>
+
+  <!-- Carousel -->
+  <div class="carousel-container">
+    <div class="carousel-wrapper">
+      <div class="carousel">
+        <div class="carousel-slides" id="carouselSlides">
+          <div class="carousel-slide">
+            <a href="#" class="carousel-link">
+              <img src="image/baner1.jpg" alt="Flash Sale GIVASTORE" class="carousel-image" onerror="this.src='https://via.placeholder.com/1200x300/1E40AF/FFFFFF?text=GIVASTORE+Flash+Sale'">
+            </a>
+          </div>
+          <div class="carousel-slide">
+            <a href="#" class="carousel-link">
+              <img src="image/baner2.jpg" alt="Produk Terbaru" class="carousel-image" onerror="this.src='https://via.placeholder.com/1200x300/3B82F6/FFFFFF?text=Produk+Terbaru'">
+            </a>
+          </div>
+          <div class="carousel-slide">
+            <a href="#" class="carousel-link">
+              <img src="image/baner3.jpg" alt="Promo Spesial" class="carousel-image" onerror="this.src='https://via.placeholder.com/1200x300/0A1931/FFFFFF?text=Promo+Spesial'">
+            </a>
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevBtn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="carousel-btn" id="nextBtn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="carousel-indicators">
+          <div class="carousel-indicator active"></div>
+          <div class="carousel-indicator"></div>
+          <div class="carousel-indicator"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flash Sale -->
+  <div class="flashsale-container">
+    <div class="flashsale-card">
+      <div class="flashsale-header">
+        <div class="flashsale-title">
+          <div class="flashsale-title-text"><i class="fas fa-bolt"></i> Flash Sale</div>
+          <div class="countdown-timer" id="countdownTimer">
+            <div class="countdown-unit pulse">00</div>
+            <span>:</span>
+            <div class="countdown-unit pulse">00</div>
+            <span>:</span>
+            <div class="countdown-unit pulse">00</div>
+            <span>:</span>
+            <div class="countdown-unit pulse">00</div>
+          </div>
+        </div>
+        <div class="flashsale-subtitle" id="countdownSubtitle">Berakhir dalam</div>
+      </div>
+      <div class="marquee-container">
+        <div class="marquee-content" id="marqueeContent">
+          <!-- Flash sale items akan diisi JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popular Products -->
+  <div class="popular-container">
+    <div class="popular-header">
+      <div class="popular-title"><i class="fas fa-fire"></i> Produk Populer</div>
+      <div class="popular-subtitle">Produk terlaris minggu ini</div>
+    </div>
+    <div class="popular-grid" id="popularGrid">
+      <!-- Popular items akan diisi JavaScript -->
+    </div>
+  </div>
+
+  <!-- Category Tabs -->
+  <div class="category-tabs-container">
+    <div class="category-tabs" id="categoryTabs">
+      <!-- Category tabs akan diisi JavaScript -->
+    </div>
+  </div>
+
+  <!-- Product Grid -->
+  <h2 class="section-title">Semua Produk</h2>
+  <div class="product-grid" id="productGrid">
+    <!-- Products akan diisi JavaScript -->
+    <div class="loading">
+      <i class="fas fa-spinner fa-spin"></i> Memuat produk...
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <div class="footer-logo-container">
+            <div class="footer-logo-image-container">
+              <img src="logo.jpg" alt="GivaStore Logo" class="footer-logo-image" 
+                   onerror="this.src='https://via.placeholder.com/35x35/1E40AF/FFFFFF?text=GS'; this.style.objectFit='cover';">
+            </div>
+            <div class="footer-logo-text">
+              <div class="footer-logo-main">GIVASTORE</div>
+              <div class="footer-logo-sub">APP PREMS</div>
+            </div>
+          </div>
+          <p class="footer-about text-overflow-safe">
+            🚀 GivaStore App - Premium digital services and social media solutions. 
+            Layanan terpercaya dengan kualitas premium sejak 2024.
+          </p>
+          <div class="footer-social">
+            <a href="https://wa.me/6285189139082" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://instagram.com/givastore.id" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://t.me/givastoreid" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+            <a href="mailto:xyzopedia@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-links-column">
+          <h3 class="footer-title text-overflow-safe">Navigasi</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">
+              <i class="fas fa-arrow-right"></i>
+              Products
+            </a>
+            <a href="https://givasmm.web.id" target="_blank" class="footer-link">
+              <i class="fas fa-arrow-right"></i>
+              Suntik Sosmed
+            </a>
+            <a href="kontak.html" class="footer-link">
+              <i class="fas fa-arrow-right"></i>
+              Contact
+            </a>
+            <a href="caraorder.html" class="footer-link">
+              <i class="fas fa-arrow-right"></i>
+              How to Order
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-links-column">
+          <h3 class="footer-title text-overflow-safe">Layanan</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">
+              <i class="fas fa-arrow-right"></i>
+              Digital Products
+            </a>
+            <a href="https://givasmm.web.id" target="_blank" class="footer-link">
+              <i class="fas fa-arrow-right"></i>
+              Social Media Injection
+            </a>
+            <a href="https://whatsapp.com/channel/0029Vb7Ff3HAu3aNjiRSIw2g" target="_blank" class="footer-link">
+              <i class="fas fa-arrow-right"></i>
+              Testimonials
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-links-column">
+          <h3 class="footer-title text-overflow-safe">Kontak Kami</h3>
+          <div class="footer-links">
+            <a href="https://wa.me/6285189139082" target="_blank" class="footer-link">
+              <i class="fab fa-whatsapp"></i>
+              WhatsApp: 6285189139082
+            </a>
+            <a href="https://instagram.com/givastore.id" target="_blank" class="footer-link">
+              <i class="fab fa-instagram"></i>
+              Instagram: givastore.id
+            </a>
+            <a href="https://t.me/givastoreid" target="_blank" class="footer-link">
+              <i class="fab fa-telegram"></i>
+              Telegram: givastoreid
+            </a>
+            <a href="mailto:xyzopedia@gmail.com" class="footer-link">
+              <i class="fas fa-envelope"></i>
+              Email: xyzopedia@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom text-overflow-safe">
+        <div class="payment-methods">
+          <div class="payment-method"><i class="fas fa-qrcode"></i> QRIS</div>
+          <div class="payment-method"><i class="fas fa-credit-card"></i> Transfer Bank</div>
+          <div class="payment-method"><i class="fas fa-wallet"></i> E-Wallet</div>
+        </div>
+        <p>&copy; <span id="currentYear"></span> GivaStore App Prems. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem; color: rgba(255, 255, 255, 0.7);">
+          Premium digital services & social media solutions
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/6285189139082" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Load products-data.js -->
+  <script src="../js/products-data.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set current year in footer
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      
+      // ==================== SIMPLE PROMO POPUP FUNCTIONALITY 9:16 ====================
+      const promoPopup = document.getElementById('promoPopup');
+      const promoClose = document.getElementById('promoClose');
+
+      // Show popup after 2 seconds
+      function showPromoPopup() {
+        // Cek jika sudah pernah menutup popup hari ini
+        const popupClosed = localStorage.getItem('promoPopupClosed');
+        const today = new Date().toDateString();
+        
+        if (!popupClosed || popupClosed !== today) {
+          setTimeout(() => {
+            promoPopup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          }, 2000);
+        }
+      }
+
+      // Close popup function
+      function closePromoPopup() {
+        promoPopup.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        // Simpan di localStorage bahwa popup telah ditutup hari ini
+        const today = new Date().toDateString();
+        localStorage.setItem('promoPopupClosed', today);
+        
+        // Simpan juga di cookie untuk 24 jam
+        document.cookie = "promoPopupClosed=true; max-age=86400; path=/";
+      }
+
+      // Event listeners for closing popup
+      if (promoClose) {
+        promoClose.addEventListener('click', closePromoPopup);
+      }
+
+      // Close popup when clicking outside
+      promoPopup.addEventListener('click', function(event) {
+        if (event.target === promoPopup) {
+          closePromoPopup();
+        }
+      });
+
+      // Close popup with Escape key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && promoPopup.classList.contains('active')) {
+          closePromoPopup();
+        }
+      });
+
+      // ==================== LOAD PRODUCTS FROM products-data.js ====================
+      function loadProductsForDisplay() {
+        console.log('🔍 Memuat produk dari products-data.js...');
+        
+        // Cek apakah productData sudah dimuat
+        if (!window.productData || !window.productData.products) {
+          console.error('Product data belum dimuat');
+          return getFallbackProducts();
+        }
+        
+        const products = window.productData.products;
+        console.log('✅ Produk dimuat dari products-data.js:', products.length, 'produk');
+        
+        // Debug: tampilkan beberapa produk pertama
+        if (products.length > 0) {
+          console.log('📊 Sample product:', products[0]);
+        }
+        
+        return products;
+      }
+
+      // Fallback products jika products-data.js tidak tersedia
+      function getFallbackProducts() {
+        return [
+          { 
+            id: 1, 
+            name: "Netflix Premium - 1 Bulan", 
+            category: "Streaming",
+            price: 25000, 
+            originalPrice: 45000,
+            image: "https://via.placeholder.com/150x150/1E40AF/FFFFFF?text=Netflix",
+            pageUrl: "pages/product.html?product=Netflix",
+            stock: 10,
+            isFlashSale: true,
+            isPopular: true,
+            description: "Netflix Premium 1 bulan dengan kualitas 4K"
+          },
+          { 
+            id: 2, 
+            name: "YouTube Premium - 1 Tahun", 
+            category: "Streaming",
+            price: 80000, 
+            originalPrice: 120000,
+            image: "https://via.placeholder.com/150x150/1E40AF/FFFFFF?text=YouTube",
+            pageUrl: "pages/product.html?product=Youtube",
+            stock: 15,
+            isFlashSale: true,
+            isPopular: true,
+            description: "YouTube Premium 1 tahun tanpa iklan"
+          }
+        ];
+      }
+
+      // Mobile Menu Toggle
+      const mobileToggle = document.getElementById('mobileToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileIcon = mobileToggle.querySelector('i');
+      
+      mobileToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        mobileMenu.classList.toggle('active');
+        mobileIcon.classList.toggle('fa-bars');
+        mobileIcon.classList.add('fa-times');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+      });
+      
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!mobileToggle.contains(event.target) && !mobileMenu.contains(event.target) && mobileMenu.classList.contains('active')) {
+          mobileMenu.classList.remove('active');
+          mobileIcon.classList.remove('fa-times');
+          mobileIcon.classList.add('fa-bars');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Close mobile menu when clicking a link
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          mobileMenu.classList.remove('active');
+          mobileIcon.classList.remove('fa-times');
+          mobileIcon.classList.add('fa-bars');
+          document.body.style.overflow = '';
+          
+          // Update active state
+          mobileLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      
+      // Update desktop nav active state on click
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          navLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      
+      // ==================== CAROUSEL ====================
+      let currentSlide = 0;
+      const carouselSlides = document.getElementById('carouselSlides');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const indicators = document.querySelectorAll('.carousel-indicator');
+      const totalSlides = document.querySelectorAll('.carousel-slide').length;
+
+      function updateCarousel() {
+        if (carouselSlides) {
+          carouselSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+        
+        // Update indicators
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle('active', index === currentSlide);
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+          updateCarousel();
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          currentSlide = (currentSlide + 1) % totalSlides;
+          updateCarousel();
+        });
+      }
+
+      // Auto slide
+      let carouselInterval = setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateCarousel();
+      }, 5000);
+
+      // Pause carousel on hover
+      const carousel = document.querySelector('.carousel');
+      if (carousel) {
+        carousel.addEventListener('mouseenter', () => {
+          clearInterval(carouselInterval);
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+          carouselInterval = setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+          }, 5000);
+        });
+      }
+
+      // Initialize carousel
+      updateCarousel();
+
+      // ==================== COUNTDOWN TIMER ====================
+      function updateCountdown() {
+        const countdownTimer = document.getElementById('countdownTimer');
+        const countdownSubtitle = document.getElementById('countdownSubtitle');
+        
+        if (!countdownTimer) return;
+        
+        const endDate = new Date('November 20, 2025 23:59:59').getTime();
+        const now = new Date().getTime();
+        const timeLeft = endDate - now;
+        
+        if (timeLeft < 0) {
+          countdownTimer.innerHTML = '<div class="countdown-unit">00</div><span>:</span><div class="countdown-unit">00</div><span>:</span><div class="countdown-unit">00</div><span>:</span><div class="countdown-unit">00</div>';
+          if (countdownSubtitle) {
+            countdownSubtitle.textContent = 'Flash Sale telah berakhir';
+          }
+          return;
+        }
+        
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        
+        countdownTimer.innerHTML = `
+          <div class="countdown-unit pulse">${days.toString().padStart(2, '0')}</div>
+          <span>:</span>
+          <div class="countdown-unit pulse">${hours.toString().padStart(2, '0')}</div>
+          <span>:</span>
+          <div class="countdown-unit pulse">${minutes.toString().padStart(2, '0')}</div>
+          <span>:</span>
+          <div class="countdown-unit pulse">${seconds.toString().padStart(2, '0')}</div>
+        `;
+        
+        if (countdownSubtitle) {
+          countdownSubtitle.textContent = `Berakhir dalam ${days} hari ${hours} jam ${minutes} menit`;
+        }
+      }
+
+      // Update countdown setiap detik
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      // ==================== PRODUCT FUNCTIONS ====================
+      
+      // Fungsi untuk fix path gambar
+      function fixImagePath(imagePath) {
+        if (!imagePath) return 'https://via.placeholder.com/150x150/1E40AF/FFFFFF?text=GIVASTORE';
+        
+        // Hapus ../ jika ada
+        if (imagePath.startsWith('../')) {
+          return imagePath.substring(3);
+        }
+        
+        // Hapus pages/ jika ada
+        if (imagePath.startsWith('pages/')) {
+          return imagePath.replace('pages/', '');
+        }
+        
+        return imagePath;
+      }
+
+      // ==================== POPULATE FLASH SALE ====================
+      function populateFlashSale() {
+        const marqueeContent = document.getElementById('marqueeContent');
+        if (!marqueeContent) {
+          console.error('marqueeContent tidak ditemukan');
+          return;
+        }
+        
+        const allProducts = loadProductsForDisplay();
+        if (allProducts.length === 0) {
+          console.error('Flash sale: Tidak ada produk untuk ditampilkan');
+          marqueeContent.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-light); border: 2px solid var(--border); background: var(--light); border-radius: var(--radius);">Memuat flash sale...</div>';
+          return;
+        }
+        
+        marqueeContent.innerHTML = '';
+        const flashSaleProducts = allProducts.filter(product => product.isFlashSale && product.stock > 0);
+        
+        console.log('Flash sale products:', flashSaleProducts.length);
+        
+        if (flashSaleProducts.length === 0) {
+          marqueeContent.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-light); border: 2px solid var(--border); background: var(--light); border-radius: var(--radius);">Tidak ada flash sale saat ini</div>';
+          return;
+        }
+        
+        flashSaleProducts.forEach(product => {
+          const discountPercentage = product.originalPrice ? 
+            Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
+          
+          const fixedImagePath = fixImagePath(product.image);
+          
+          const item = document.createElement('div');
+          item.className = 'flashsale-item animate-fade-in-up';
+          item.innerHTML = `
+            ${discountPercentage > 0 ? `
+            <div class="discount-badge">
+              <div class="discount-text">${discountPercentage}% OFF</div>
+            </div>` : ''}
+            <div class="flashsale-item-content">
+              <div class="flashsale-item-image">
+                <img src="${fixedImagePath}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/50x50/1E40AF/FFFFFF?text=${encodeURIComponent(product.name.substring(0, 3))}'">
+              </div>
+              <div class="flashsale-item-details">
+                <div class="flashsale-item-name">${product.name}</div>
+                ${product.originalPrice ? `
+                <div class="flashsale-item-original-price">Rp ${product.originalPrice.toLocaleString('id-ID')}</div>` : ''}
+                <div class="flashsale-item-price">Rp ${product.price.toLocaleString('id-ID')}</div>
+              </div>
+            </div>
+            <a href="${product.pageUrl || 'product.html?id=' + product.id}" class="flashsale-buy-button">Beli Sekarang</a>
+          `;
+          
+          marqueeContent.appendChild(item);
+        });
+        
+        // Duplicate items for seamless marquee
+        const items = marqueeContent.innerHTML;
+        marqueeContent.innerHTML += items;
+        
+        console.log('✅ Flash sale populated:', flashSaleProducts.length, 'items');
+      }
+
+      // ==================== POPULATE POPULAR PRODUCTS ====================
+      function populatePopularProducts() {
+        const popularGrid = document.getElementById('popularGrid');
+        if (!popularGrid) {
+          console.error('popularGrid tidak ditemukan');
+          return;
+        }
+        
+        const allProducts = loadProductsForDisplay();
+        if (allProducts.length === 0) {
+          console.error('Popular products: Tidak ada produk untuk ditampilkan');
+          popularGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-light); border: 2px solid var(--border); background: var(--light); border-radius: var(--radius);">Memuat produk populer...</div>';
+          return;
+        }
+        
+        popularGrid.innerHTML = '';
+        const popularProducts = allProducts.filter(product => product.isPopular && product.stock > 0);
+        
+        console.log('Popular products:', popularProducts.length);
+        
+        if (popularProducts.length === 0) {
+          popularGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-light); border: 2px solid var(--border); background: var(--light); border-radius: var(--radius);">Belum ada produk populer</div>';
+          return;
+        }
+        
+        popularProducts.forEach(product => {
+          const fixedImagePath = fixImagePath(product.image);
+          
+          const item = document.createElement('div');
+          item.className = 'popular-item animate-fade-in-up';
+          item.innerHTML = `
+            <div class="popular-item-content">
+              <div class="popular-item-image">
+                <img src="${fixedImagePath}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/60x60/1E40AF/FFFFFF?text=${encodeURIComponent(product.name.substring(0, 3))}'">
+              </div>
+              <div class="popular-item-details">
+                <div class="popular-item-title">${product.name}</div>
+                <a href="${product.pageUrl || 'product.html?id=' + product.id}" class="popular-item-buy-button">Rp ${product.price.toLocaleString('id-ID')}</a>
+              </div>
+            </div>
+          `;
+          
+          popularGrid.appendChild(item);
+        });
+        
+        console.log('✅ Popular products populated:', popularProducts.length, 'items');
+      }
+
+      // ==================== CATEGORY TABS ====================
+      function populateCategoryTabs() {
+        const categoryTabs = document.getElementById('categoryTabs');
+        if (!categoryTabs) {
+          console.error('categoryTabs tidak ditemukan');
+          return;
+        }
+        
+        const allProducts = loadProductsForDisplay();
+        if (allProducts.length === 0) {
+          console.error('Category tabs: Tidak ada produk untuk ditampilkan');
+          categoryTabs.innerHTML = '<div style="padding: 1rem; text-align: center; color: var(--text-light);">Belum ada kategori</div>';
+          return;
+        }
+        
+        categoryTabs.innerHTML = '';
+        
+        // Buat daftar kategori unik dari produk
+        const categoriesSet = new Set();
+        allProducts.forEach(product => {
+          if (product.category) {
+            categoriesSet.add(product.category);
+          }
+        });
+        
+        const categories = Array.from(categoriesSet);
+        
+        // Tambahkan tab "Semua Produk"
+        const allTab = document.createElement('div');
+        allTab.className = 'category-tab animate-fade-in-up active';
+        allTab.textContent = 'Semua Produk';
+        allTab.addEventListener('click', function() {
+          document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          filterProducts('Semua Produk');
+        });
+        categoryTabs.appendChild(allTab);
+        
+        // Tambahkan tab untuk setiap kategori
+        categories.forEach(category => {
+          const tab = document.createElement('div');
+          tab.className = 'category-tab animate-fade-in-up';
+          tab.textContent = category;
+          tab.addEventListener('click', function() {
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            filterProducts(category);
+          });
+          
+          categoryTabs.appendChild(tab);
+        });
+        
+        console.log('✅ Category tabs populated:', categories.length + 1, 'categories');
+      }
+
+      // ==================== POPULATE PRODUCT GRID ====================
+      function populateProductGrid() {
+        const productGrid = document.getElementById('productGrid');
+        if (!productGrid) {
+          console.error('productGrid tidak ditemukan');
+          return;
+        }
+        
+        const allProducts = loadProductsForDisplay();
+        
+        console.log('All products for grid:', allProducts.length);
+        
+        if (allProducts.length === 0) {
+          productGrid.innerHTML = `
+            <div class="error-message">
+              <i class="fas fa-box-open"></i>
+              <h3>Tidak ada produk tersedia</h3>
+              <p>Silakan coba lagi nanti atau hubungi admin.</p>
+              <button onclick="window.location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--accent); color: white; border: 2px solid var(--border); border-radius: var(--radius); cursor: pointer; font-weight: 700; box-shadow: var(--shadow-sm);">
+                Refresh Halaman
+              </button>
+            </div>
+          `;
+          return;
+        }
+        
+        productGrid.innerHTML = '';
+        
+        allProducts.forEach((product, index) => {
+          const fixedImagePath = fixImagePath(product.image);
+          
+          const card = document.createElement('div');
+          card.className = 'product-card animate-fade-in-up';
+          card.style.animationDelay = `${index * 0.05}s`;
+          card.innerHTML = `
+            <img src="${fixedImagePath}" 
+                 alt="${product.name}" 
+                 onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150/1E40AF/FFFFFF?text=${encodeURIComponent(product.name.substring(0, 10))}'">
+            <h3 class="product-title">${product.name}</h3>
+            <a href="${product.pageUrl || 'pages/product.html?id=' + product.id}" class="buy-button">Beli Sekarang</a>
+          `;
+          
+          productGrid.appendChild(card);
+        });
+        
+        console.log('✅ Product grid populated:', allProducts.length, 'products');
+      }
+
+      // ==================== FILTER PRODUCTS BY CATEGORY ====================
+      function filterProducts(categoryName) {
+        const productGrid = document.getElementById('productGrid');
+        if (!productGrid) return;
+        
+        const allProducts = loadProductsForDisplay();
+        productGrid.innerHTML = '';
+        
+        let filteredProducts;
+        if (categoryName === 'Semua Produk') {
+          filteredProducts = allProducts;
+        } else {
+          filteredProducts = allProducts.filter(product => product.category === categoryName);
+        }
+        
+        const sectionTitle = document.querySelector('.section-title');
+        if (sectionTitle) {
+          if (categoryName === 'Semua Produk') {
+            sectionTitle.textContent = 'Semua Produk';
+          } else {
+            sectionTitle.textContent = `Produk ${categoryName}`;
+          }
+        }
+        
+        if (filteredProducts.length === 0) {
+          productGrid.innerHTML = `
+            <div class="error-message">
+              <i class="fas fa-search"></i>
+              <h3>Tidak ada produk di kategori "${categoryName}"</h3>
+              <p>Silakan pilih kategori lain.</p>
+            </div>
+          `;
+          return;
+        }
+        
+        filteredProducts.forEach((product, index) => {
+          const fixedImagePath = fixImagePath(product.image);
+          
+          const card = document.createElement('div');
+          card.className = 'product-card animate-fade-in-up';
+          card.style.animationDelay = `${index * 0.05}s`;
+          card.innerHTML = `
+            <img src="${fixedImagePath}" alt="${product.name}" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150/1E40AF/FFFFFF?text=${encodeURIComponent(product.name.substring(0, 10))}'">
+            <h3 class="product-title">${product.name}</h3>
+            <a href="${product.pageUrl || 'pages/product.html?id=' + product.id}" class="buy-button">Beli Sekarang</a>
+          `;
+          
+          productGrid.appendChild(card);
+        });
+      }
+
+      // ==================== INITIALIZE PAGE ====================
+      function initializePage() {
+        console.log('🚀 Initializing GivaStore Product Page...');
+        console.log('=== DEBUG INFO ===');
+        console.log('Window.productData:', window.productData ? 'Available' : 'Not available');
+        console.log('==================');
+        
+        try {
+          // Tunggu sebentar untuk memastikan products-data.js dimuat
+          setTimeout(() => {
+            // Populate semua komponen
+            populateFlashSale();
+            populatePopularProducts();
+            populateCategoryTabs();
+            populateProductGrid();
+            
+            // Tampilkan popup promo
+            showPromoPopup();
+            
+            console.log('✅ All components successfully loaded!');
+            
+            // Tampilkan info produk
+            const allProducts = loadProductsForDisplay();
+            console.log('📊 Product Statistics:');
+            console.log('Total produk:', allProducts.length);
+            console.log('Produk populer:', allProducts.filter(p => p.isPopular).length);
+            console.log('Flash sale:', allProducts.filter(p => p.isFlashSale).length);
+            
+          }, 500);
+          
+        } catch (error) {
+          console.error('❌ Error initializing components:', error);
+          
+          const productGrid = document.getElementById('productGrid');
+          if (productGrid) {
+            productGrid.innerHTML = `
+              <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Terjadi kesalahan saat memuat produk</h3>
+                <p>Error: ${error.message}</p>
+                <button onclick="window.location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--accent); color: white; border: 2px solid var(--border); border-radius: var(--radius); cursor: pointer; font-weight: 700; box-shadow: var(--shadow-sm);">
+                  Refresh Halaman
+                </button>
+              </div>
+            `;
+          }
+        }
+      }
+
+      // Handle window resize
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          const marqueeContent = document.getElementById('marqueeContent');
+          if (marqueeContent) {
+            const items = marqueeContent.innerHTML;
+            marqueeContent.innerHTML = items;
+          }
+        }, 250);
+      });
+
+      // Navbar scroll effect
+      const navbar = document.getElementById('navbar');
+      let lastScrollTop = 0;
+      
+      window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+        
+        if (window.innerWidth <= 768) {
+          if (scrollTop > lastScrollTop && scrollTop > 100) {
+            navbar.style.transform = 'translateY(-100%)';
+          } else {
+            navbar.style.transform = 'translateY(0)';
+          }
+        }
+        
+        lastScrollTop = scrollTop;
+      });
+
+      // Initialize page dengan delay untuk memastikan products-data.js dimuat
+      setTimeout(() => {
+        initializePage();
+      }, 800);
+
+      console.log('✅ GivaStore App Prems Product Page initialized successfully');
+    });
+  </script>
+</body>
+</html>
