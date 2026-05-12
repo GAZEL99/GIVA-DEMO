@@ -130,8 +130,13 @@ const semuaProduk = {
     packages: [
       {
         name: "YOUTUBE Famplan (bisa login yt music)",
-        price: 8500,
+        price: 9500,
         duration: "1 BULAN"
+      },
+      {
+        name: "YOUTUBE Famplan (bisa login yt music)",
+        price: 18500,
+        duration: "2 BULAN"
       },
     ]
   },
