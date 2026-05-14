@@ -477,8 +477,8 @@ const semuaProduk = {
     packages: [
       {
         name: "NO STOCK",
-        price: ,
-        duration: ""
+        price: 1,
+        duration: "1"
       },
   
       }
