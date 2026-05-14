@@ -476,29 +476,11 @@ const semuaProduk = {
     ],
     packages: [
       {
-        name: "CapCut Private 7 Hari",
-        price: 3500,
-        duration: "7 HARI"
+        name: "NO STOCK",
+        price: ,
+        duration: ""
       },
-      {
-        name: "CapCut Private 14 Hari",
-        price: 4500,
-        duration: "14 HARI"
-      },
-      {
-        name: "CapCut Private 28 Hari",
-        price: 8800,
-        duration: "28 HARI"
-      },
-      {
-        name: "CapCut Private 35 Hari",
-        price: 11500,
-        duration: "35 HARI"
-      },
-      {
-        name: "CapCut Private 42 Hari",
-        price: 14800,
-        duration: "42 HARI"
+  
       }
     ]
   },
