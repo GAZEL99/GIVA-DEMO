@@ -242,9 +242,9 @@ window.productData = {
     },
     {
       id: 16,
-      name: "Capcut (NO STOCK)",
+      name: "Capcut ",
       category: "Editing",
-      price: 0000,
+      price: 5000,
       originalPrice: 10000,
       image: "../image/capcut.png",
       discount: 65,
