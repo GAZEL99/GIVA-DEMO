@@ -476,10 +476,14 @@ const semuaProduk = {
     ],
     packages: [
       {
-        name: "NO STOCK",
-        price: 1,
-        duration: "1"
+        name: "Capcut private",
+        price: 5000,
+        duration: "7 Hari"
       },
+      {
+        name: "Capcut private",
+        price: 17000,
+        duration: " 1 Bulan"
   
       }
     ]
