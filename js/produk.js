@@ -476,19 +476,10 @@ const semuaProduk = {
     ],
     packages: [
       {
-        name: "Capcut 1 minggu",
-        price: 9000,
-        duration: "7 Hari"
-      },
-      {
-        name: "Capcut 1 bulan individual Standar",
-        price: 15000,
-        duration: "1 bulan"
-      },
-      {
-        name: "Capcut 1 bulan individual Pro",
-        price: 25000,
-        duration: "1 bulan"
+        name: "Capcut NO STOCK",
+        price: 000,
+        duration: "1"
+      
         }
     ]
   },
