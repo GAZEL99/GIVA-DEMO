@@ -332,14 +332,31 @@ window.productData = {
       originalPrice: 25000,
       image: "../image/duolingo.png",
       discount: 57,
-      isPopular: true,
+      isPopular: false,
       isFlashSale: true,
       pageUrl: "pages/product.html?product=Duolingo",
       description: "Platform pembelajaran bahasa interaktif",
       features: ["Sharing Account", "1 Bulan", "No Ads", "Offline Lessons"],
       stock: 75,
       sold: 950
+    },
+    {
+      id: 24,
+      name: "Spotify",
+      category: "Music",
+      price: 22800,
+      originalPrice: 60000,
+      image: "../image/spotify.png",
+      discount: 65,
+      isPopular: true,
+      isFlashSale: true,
+      pageUrl: "pages/product.html?product=Spotify",
+      description: "",
+      features: [""],
+      stock: 75,
+      sold: 950
     }
+    
   ]
 };
 
