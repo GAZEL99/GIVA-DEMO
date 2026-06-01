@@ -484,6 +484,37 @@ const semuaProduk = {
     ]
   },
 
+    name: "Spotify",
+    description: "",
+    bannerImage: "../image/Spotify.png",
+    logo: "../image/Spotify.png",
+    category: "Music",
+    inputFields: [
+      {
+        type: "text",
+        name: "whatsapp",
+        label: "Nomor WhatsApp",
+        placeholder: "Masukkan nomor WhatsApp Anda",
+        required: true,
+        hint: "Nomor WhatsApp untuk pengiriman akun"
+      }
+    ],
+    packages: [
+      {
+        name: "Spotify Indplan Nogar",
+        price: 22800,
+        duration: "1 BULAN"
+      
+        },
+      {
+        name: "Spotify Indplan Fullgar",
+        price: 28800,
+        duration: "1 BULAN"
+      
+}
+    ]
+  },
+
   "Meitu": {
     name: "MEITU",
     description: "Meitu untuk editing foto profesional",
