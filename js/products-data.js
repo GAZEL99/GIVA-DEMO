@@ -242,9 +242,9 @@ window.productData = {
     },
     {
       id: 16,
-      name: "TANYA STOCK PADA ADMIN",
+      name: "Capcut pro",
       category: "Editing",
-      price: 30000,
+      price: 60000,
       originalPrice: 10000,
       image: "../image/capcut.png",
       discount: 65,
