@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="GivaStore App - Sedang dalam perbaikan (Maintenance)">
+  <title>Sedang Pemeliharaan | GivaStore App</title>
+  <link rel="icon" href="image/logo.jpg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ==================== BLUE GRADIENT THEME (FROM ORIGINAL) ==================== */
+    :root {
+      --primary: #0A1931;
+      --primary-alt: #152C5B;
+      --accent: #1E40AF;
+      --accent-light: #3B82F6;
+      --accent-alt: #60A5FA;
+      --secondary: #06B6D4;
+      --secondary-alt: #0EA5E9;
+      --tertiary: #8B5CF6;
+      --text-dark: #0F172A;
+      --text: #1F2937;
+      --text-light: #64748B;
+      --light: #FFFFFF;
+      --light-gray: #F8FAFC;
+      --gray: #E2E8F0;
+      --border: #0F172A;
+      --shadow: 4px 4px 0px var(--border);
+      --shadow-sm: 2px 2px 0px var(--border);
+      --shadow-lg: 6px 6px 0px var(--border);
+      --radius: 8px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      /* Gradients */
+      --gradient-primary: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+      --gradient-light: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+      --gradient-accent: linear-gradient(135deg, #1E40AF 0%, #8B5CF6 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border: 6px solid var(--border);
+      background-image: 
+        linear-gradient(90deg, rgba(30, 64, 175, 0.03) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(30, 64, 175, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        border-width: 3px;
+        padding: 15px;
+      }
+    }
+
+    /* ==================== MAINTENANCE CARD ==================== */
+    .maintenance-wrapper {
+      width: 100%;
+      max-width: 600px;
+      background: var(--light);
+      border: 3px solid var(--border);
+      border-radius: calc(var(--radius) * 2);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      position: relative;
+      animation: popupSlideUp 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    /* Top decoration bar */
+    .maintenance-wrapper::before {
+      content: '';
+      display: block;
+      height: 12px;
+      background: var(--gradient-primary);
+      width: 100%;
+      border-bottom: 3px solid var(--border);
+    }
+
+    .maintenance-content {
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .maintenance-content {
+        padding: 30px 20px;
+      }
+    }
+
+    /* Logo Area */
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      padding: 10px 20px;
+      background: var(--light-gray);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .logo-image {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      object-fit: cover;
+      transform: rotate(-5deg);
+    }
+
+    .logo-text {
+      text-align: left;
+    }
+
+    .logo-main {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--border);
+      line-height: 1;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .logo-main span {
+      color: var(--accent);
+    }
+
+    .logo-sub {
+      font-size: 0.65rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* Animation Icon */
+    .maintenance-icon {
+      font-size: 4rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: inline-block;
+      position: relative;
+    }
+
+    .maintenance-icon i {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: spin 6s linear infinite;
+    }
+
+    .icon-badge {
+      position: absolute;
+      bottom: 0;
+      right: -10px;
+      background: #F59E0B;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      border: 2px solid var(--border);
+    }
+
+    /* Text Content */
+    .title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .description {
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-bottom: 30px;
+      font-weight: 500;
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (max-width: 480px) {
+      .title { font-size: 1.6rem; }
+      .description { font-size: 0.9rem; margin-bottom: 25px; }
+    }
+
+    /* Progress Bar Mockup */
+    .progress-container {
+      width: 100%;
+      height: 12px;
+      background: var(--gray);
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 65%;
+      background: var(--gradient-primary);
+      border-right: 2px solid var(--border);
+      position: relative;
+      animation: pulse-width 2s ease-in-out infinite alternate;
+    }
+    
+    .progress-text {
+      font-family: 'DM Mono', monospace;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      margin-bottom: 35px;
+    }
+
+    /* Contact Section */
+    .contact-box {
+      background: var(--light-gray);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .contact-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      margin-bottom: 15px;
+    }
+
+    .btn-contact {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 25px;
+      background: #25D366; /* WhatsApp Color */
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      font-family: 'Space Grotesk', sans-serif;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .btn-contact:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow);
+      background: #1EBE5D;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--light);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-dark);
+      font-size: 1.2rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .social-links a:hover {
+      background: var(--gradient-primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    /* Animations */
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes popupSlideUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes pulse-width {
+      0% { width: 60%; }
+      100% { width: 75%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="maintenance-wrapper">
+    <div class="maintenance-content">
+      
+      <!-- Logo -->
+      <div class="logo-container">
+        <img src="image/logo.jpg" alt="Logo" class="logo-image" onerror="this.src='https://via.placeholder.com/40x40/1E40AF/FFFFFF?text=GS'">
+        <div class="logo-text">
+          <div class="logo-main">GIVA<span>STORE</span></div>
+          <div class="logo-sub">APP PREMS</div>
+        </div>
+      </div>
+
+      <!-- Icon -->
+      <div class="maintenance-icon">
+        <i class="fas fa-cog"></i>
+        <div class="icon-badge"><i class="fas fa-wrench"></i></div>
+      </div>
+
+      <!-- Text Content -->
+      <h1 class="title">Website Sedang<br>Diperbarui!</h1>
+      <p class="description">
+        Mohon maaf atas ketidaknyamanannya. Kami sedang meningkatkan sistem GivaStore untuk memberikan layanan yang jauh lebih baik dan cepat untuk Anda.
+      </p>
+
+      <!-- Progress Animation -->
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
+      <div class="progress-text">System Upgrade in Progress...</div>
+
+      <!-- Contact Info -->
+      <div class="contact-box">
+        <div class="contact-title">Butuh transaksi segera? Jangan khawatir!</div>
+        <a href="https://wa.me/6285189139082" class="btn-contact" target="_blank">
+          <i class="fab fa-whatsapp"></i> Hubungi Admin WA
+        </a>
+        
+        <div class="social-links">
+          <a href="https://instagram.com/givastore.id" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://t.me/givastoreid" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+          <a href="mailto:xyzopedia@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
+
+```
