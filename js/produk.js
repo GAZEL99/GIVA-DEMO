@@ -431,13 +431,18 @@ const semuaProduk = {
     packages: [
       {
         name: "Spotify Indplan Nogar",
-        price: 22800,
+        price: 15800,
         duration: "1 BULAN"
       },
       {
         name: "Spotify Indplan Fullgar",
-        price: 28800,
+        price: 18800,
         duration: "1 BULAN"
+      },
+      {
+        name: "Spotify Indplan Fullgar",
+        price: 33800,
+        duration: "3 BULAN"
       }
     ]
   },
