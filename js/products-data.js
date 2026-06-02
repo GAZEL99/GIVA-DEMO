@@ -213,7 +213,7 @@ window.productData = {
       originalPrice: 20000,
       image: "../image/applemusic.png",
       discount: 60,
-      isPopular: true,
+      isPopular: false,
       isFlashSale: false,
       pageUrl: "pages/product.html?product=Apple%20Music",
       description: "Apple Music dengan jutaan lagu",
