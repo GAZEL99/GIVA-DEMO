@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Produk | GIVASTORE.ID</title>
+  <meta name="description" content="Beli produk digital murah dan terpercaya di GIVASTORE">
+  <link rel="icon" href="../image/logo.jpg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==================== DESIGN SYSTEM (SAMA DENGAN INDEX.HTML) ==================== */
+    :root {
+      --blue: #2563EB;
+      --blue-dark: #1D4ED8;
+      --blue-light: #DBEAFE;
+      --primary: #1E293B;
+      --accent: #2563EB;
+      --accent-light: #DBEAFE;
+      --accent-alt: #1D4ED8;
+      --text-dark: #1E293B;
+      --text: #334155;
+      --text-light: #64748B;
+      --light: #FFFFFF;
+      --light-gray: #F1F5F9;
+      --gray: #E2E8F0;
+      --border: #1E293B;
+      --shadow: 4px 4px 0px var(--border);
+      --shadow-sm: 2px 2px 0px var(--border);
+      --shadow-lg: 6px 6px 0px var(--border);
+      --radius: 14px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --error: #FF4757;
+      --warning: #F5C535;
+      --success: #22C55E;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; touch-action: manipulation; }
+    @media (max-width: 768px) { html { font-size: 15px; } }
+    @media (max-width: 480px) { html { font-size: 14px; } }
+
+    body {
+      background: #FFFFFF;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: var(--transition);
+      border: 3px solid var(--border);
+      padding-top: 60px;
+      padding-bottom: 90px;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+    @media (min-width: 769px) {
+      body {
+        background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
+        background-size: 28px 28px;
+        border-width: 6px;
+        padding-top: 80px;
+      }
+    }
+    @media (max-width: 768px) { body { border-width: 3px; } }
+    @media (max-width: 480px) { body { border-width: 2px; } }
+
+    /* ==================== ANIMATIONS ==================== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-28px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes popIn {
+      0%   { opacity: 0; transform: scale(0.75); }
+      70%  { transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-7px); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    @keyframes ripple {
+      to { transform: scale(4); opacity: 0; }
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-8px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes navbarIn {
+      from { transform: translateY(-100%); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.3); }
+      50%       { box-shadow: 0 0 0 8px rgba(37,99,235,0); }
+    }
+    @keyframes bannerIn {
+      from { opacity: 0; transform: scale(0.97) translateY(8px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .ripple-effect {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      width: 10px; height: 10px;
+      pointer-events: none; transform: scale(0);
+      animation: ripple 0.55s linear;
+    }
+
+    /* ==================== NAVBAR ==================== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #FFFFFF;
+      border-bottom: 3px solid var(--border);
+      z-index: 1000; height: 60px; display: flex; align-items: center;
+      box-shadow: 0 3px 0px var(--border); transition: var(--transition);
+      animation: navbarIn 0.4s ease both;
+    }
+    @media (min-width: 769px) { .navbar { height: 80px; border-bottom-width: 4px; } }
+    @media (max-width: 480px) { .navbar { height: 55px; border-bottom-width: 2px; } }
+
+    .nav-container {
+      width: 100%; max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 15px;
+    }
+
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; min-width: 120px; flex-shrink: 0; }
+    .logo-image-container {
+      position: relative; width: 40px; height: 40px;
+      border: 2px solid var(--border); box-shadow: var(--shadow-sm);
+      transform: rotate(-5deg); transition: var(--transition);
+      overflow: hidden; background: var(--blue); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .logo-image-container:hover { transform: rotate(0deg); }
+    @media (min-width: 769px) { .logo-image-container { width: 50px; height: 50px; border-width: 3px; } }
+    @media (max-width: 480px) { .logo-image-container { width: 35px; height: 35px; } }
+    .logo-image { width: 100%; height: 100%; object-fit: cover; }
+    .logo-text { display: flex; flex-direction: column; }
+    .logo-main {
+      font-size: 1.2rem; font-weight: 900; color: var(--border); line-height: 1;
+      letter-spacing: -0.5px; font-family: 'Cabinet Grotesk', 'Space Grotesk', sans-serif;
+    }
+    .logo-main span { color: var(--accent); }
+    .logo-sub {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; margin-top: 2px;
+      color: var(--blue-dark); text-transform: uppercase;
+    }
+
+    .back-btn {
+      display: flex; align-items: center; gap: 6px; color: var(--text-dark);
+      text-decoration: none; font-weight: 700; font-size: 0.85rem;
+      padding: 0.5rem 0.9rem; border: 2px solid var(--border); border-radius: 50px;
+      transition: var(--transition); box-shadow: var(--shadow-sm);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .back-btn:hover { background: var(--blue); color: white; transform: translate(-2px,-2px); box-shadow: var(--shadow); }
+
+    /* ==================== LAYOUT ==================== */
+    .main-container {
+      max-width: 1200px; margin: 28px auto; padding: 0 15px;
+      display: flex; gap: 2rem;
+      animation: fadeInUp 0.5s ease both 0.1s;
+    }
+    @media (max-width: 768px) { .main-container { flex-direction: column; margin: 18px auto; gap: 1.2rem; } }
+
+    .desktop-sidebar { flex: 0 0 260px; position: sticky; top: 100px; height: fit-content; }
+    @media (max-width: 768px) { .desktop-sidebar { display: none; } }
+
+    .sidebar-card {
+      background: var(--light); border: 2.5px solid var(--border); border-radius: var(--radius);
+      padding: 1.25rem; margin-bottom: 1rem; box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .sidebar-card:hover { transform: translate(-3px,-3px); box-shadow: var(--shadow); }
+    .sidebar-card h3 {
+      font-size: 0.95rem; margin-bottom: 1rem; color: var(--text-dark);
+      display: flex; align-items: center; gap: 0.5rem; font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif; padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .sidebar-card h3 i { color: var(--blue); }
+
+    .feature-item {
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem;
+      padding: 0.5rem 0.75rem; border-radius: 10px; background: var(--light-gray);
+      border: 2px solid var(--border); font-size: 0.85rem; font-weight: 600;
+      transition: var(--transition);
+    }
+    .feature-item:hover { background: var(--blue); color: white; transform: translate(-2px,-2px); box-shadow: var(--shadow-sm); }
+    .feature-item:hover i { color: white; }
+    .feature-item i { color: var(--blue); font-size: 0.9rem; }
+
+    .main-content { flex: 1; min-width: 0; }
+
+    /* ==================== PRODUCT HEADER ==================== */
+    .product-header { margin-bottom: 1.5rem; animation: bannerIn 0.5s ease both 0.05s; }
+    .product-banner {
+      position: relative; height: 240px; border-radius: var(--radius);
+      overflow: hidden; border: 3px solid var(--border); box-shadow: var(--shadow);
+    }
+    @media (max-width: 480px) { .product-banner { height: 180px; } }
+    .banner-bg { width: 100%; height: 100%; object-fit: cover; }
+    .product-info {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.4) 60%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem;
+    }
+    .product-info-content { display: flex; align-items: flex-end; gap: 1.2rem; }
+    .product-logo {
+      width: 72px; height: 72px; border-radius: 12px;
+      border: 3px solid rgba(255,255,255,0.25); background: var(--light);
+      overflow: hidden; padding: 3px; flex-shrink: 0;
+      box-shadow: var(--shadow);
+    }
+    .product-logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+    .product-details h1 {
+      font-size: 1.6rem; color: #fff; margin-bottom: 0.4rem;
+      font-family: 'Cabinet Grotesk', 'Space Grotesk', sans-serif; font-weight: 900;
+    }
+    @media (max-width: 480px) { .product-details h1 { font-size: 1.3rem; } }
+    .product-details p { color: rgba(255,255,255,0.85); font-size: 0.9rem; }
+    .feature-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .feature-badge {
+      background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.2);
+      padding: 5px 10px; border-radius: 20px; color: #86EFAC; font-size: 0.78rem;
+      display: flex; align-items: center; gap: 5px; font-weight: 600;
+    }
+
+    /* ==================== SECTION CARDS ==================== */
+    .section-card {
+      background: var(--light); border: 2.5px solid var(--border); border-radius: var(--radius);
+      padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-sm);
+      transition: var(--transition); animation: fadeInUp 0.5s ease both;
+    }
+    .section-card:hover { transform: translate(-3px,-3px); box-shadow: var(--shadow); }
+
+    .section-header {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+      padding-bottom: 1rem; border-bottom: 2px solid var(--border);
+    }
+    .step-badge {
+      background: var(--blue); color: white; width: 32px; height: 32px;
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; border: 2px solid var(--border); flex-shrink: 0;
+      font-family: 'Space Grotesk', sans-serif; box-shadow: var(--shadow-sm);
+    }
+    .section-header h2 {
+      font-size: 1.15rem; font-weight: 800; color: var(--text-dark);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* ==================== FORMS ==================== */
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label {
+      display: block; margin-bottom: 0.5rem; font-weight: 700;
+      font-size: 0.9rem; color: var(--text-dark);
+    }
+    .field-required::after { content: "*"; color: var(--error); margin-left: 4px; }
+
+    input[type="text"], input[type="tel"], input[type="number"], input[type="email"], select {
+      width: 100%; padding: 0.85rem 1rem; background: var(--light-gray);
+      border: 2px solid var(--border); border-radius: 10px;
+      font-size: 0.95rem; outline: none; font-family: 'Poppins', sans-serif;
+      transition: var(--transition); color: var(--text-dark);
+    }
+    input:focus, select:focus {
+      border-color: var(--blue); background: var(--light);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+    }
+    .input-hint {
+      font-size: 0.8rem; color: var(--text-light); margin-top: 0.5rem;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .input-hint i { color: var(--blue); }
+
+    /* ==================== PACKAGES ==================== */
+    .packages-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+    @media (max-width: 768px) { .packages-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .packages-grid { grid-template-columns: 1fr; } }
+
+    .package-card {
+      background: var(--light); border: 2.5px solid var(--border); border-radius: var(--radius);
+      padding: 1.25rem; text-align: center; cursor: pointer;
+      transition: var(--transition); display: flex; flex-direction: column;
+      justify-content: center; min-height: 110px; box-shadow: var(--shadow-sm);
+      position: relative; overflow: hidden;
+    }
+    .package-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--blue); transform: scaleX(0); transition: transform 0.3s ease;
+    }
+    .package-card:hover { transform: translate(-4px,-4px); box-shadow: var(--shadow); }
+    .package-card:hover::before { transform: scaleX(1); }
+    .package-card.selected {
+      border-color: var(--blue); background: var(--blue); color: white;
+      box-shadow: var(--shadow); transform: translate(-4px,-4px);
+    }
+    .package-card.selected::before { transform: scaleX(1); background: white; }
+    .package-name { font-size: 0.9rem; font-weight: 800; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; }
+    .package-price { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem; font-family: 'DM Mono', monospace; }
+    .package-duration {
+      font-size: 0.72rem; color: var(--text-light); background: var(--light-gray);
+      padding: 4px 8px; border-radius: 12px; display: inline-block; border: 1.5px solid var(--border);
+      font-weight: 700;
+    }
+    .package-card.selected .package-duration { background: rgba(255,255,255,0.2); color: white; border-color: transparent; }
+    .package-card.selected .package-price, .package-card.selected .package-name { color: white; }
+
+    /* ==================== QTY ==================== */
+    .qty-wrapper {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--light-gray); padding: 0.75rem; border-radius: 12px;
+      border: 2px solid var(--border); max-width: 200px;
+    }
+    .qty-btn {
+      width: 36px; height: 36px; border-radius: 8px; border: 2px solid var(--border);
+      background: var(--light); cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-weight: 800; transition: var(--transition);
+      font-size: 1rem; box-shadow: var(--shadow-sm);
+    }
+    .qty-btn:hover { background: var(--blue); color: white; transform: translate(-1px,-1px); box-shadow: var(--shadow); }
+    .qty-value {
+      font-size: 1.1rem; font-weight: 800; width: 50px; text-align: center;
+      border: none !important; background: transparent !important;
+      font-family: 'DM Mono', monospace; padding: 0; color: var(--text-dark);
+    }
+
+    /* ==================== ORDER SUMMARY ==================== */
+    .order-summary {
+      background: var(--light-gray); border: 2px dashed var(--blue);
+      border-radius: var(--radius); padding: 1.5rem; margin-top: 1.5rem;
+    }
+    .summary-header {
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
+      font-weight: 800; font-family: 'Space Grotesk', sans-serif;
+    }
+    .summary-header i { color: var(--blue); }
+    .summary-content {
+      background: var(--light); padding: 1.25rem; border-radius: 12px;
+      border: 2px solid var(--border);
+    }
+    .summary-row {
+      display: flex; justify-content: space-between; margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem; border-bottom: 1px dashed var(--gray);
+      font-size: 0.9rem;
+    }
+    .summary-row:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .summary-row span:first-child { color: var(--text-light); }
+    .summary-row span:last-child { font-weight: 700; color: var(--text-dark); }
+    .summary-total {
+      background: var(--blue); padding: 1rem; border-radius: 10px;
+      margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;
+      border: 2.5px solid var(--border); box-shadow: var(--shadow-sm);
+    }
+    .total-label { color: white; font-weight: 800; font-family: 'Space Grotesk', sans-serif; }
+    .total-amount { color: white; font-weight: 900; font-size: 1.3rem; font-family: 'DM Mono', monospace; }
+
+    /* ==================== PROMO ==================== */
+    .promo-group { display: flex; gap: 0.75rem; }
+    .promo-group input { flex: 1; }
+    .btn-apply {
+      background: var(--blue); color: white; border: 2px solid var(--border);
+      padding: 0 1.25rem; border-radius: 10px; font-weight: 800; cursor: pointer;
+      height: 50px; font-family: 'Space Grotesk', sans-serif; white-space: nowrap;
+      transition: var(--transition); box-shadow: var(--shadow-sm);
+    }
+    .btn-apply:hover { background: var(--blue-dark); transform: translate(-2px,-2px); box-shadow: var(--shadow); }
+    .promo-message {
+      margin-top: 0.75rem; padding: 0.75rem; border-radius: 10px;
+      font-size: 0.85rem; display: none; font-weight: 600;
+    }
+    .promo-message.success { background: rgba(34,197,94,0.1); color: var(--success); border: 2px solid var(--success); display: block; }
+    .promo-message.error { background: rgba(255,71,87,0.1); color: var(--error); border: 2px solid var(--error); display: block; }
+
+    /* ==================== WA INPUT ==================== */
+    .wa-box {
+      display: flex; align-items: center; background: var(--light-gray);
+      border: 2px solid var(--border); border-radius: 10px; overflow: hidden;
+      transition: var(--transition);
+    }
+    .wa-box:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+    .wa-prefix {
+      background: #25D366; color: white; padding: 0.85rem 1rem; font-weight: 700;
+      display: flex; align-items: center; gap: 8px; border-right: 2px solid var(--border); flex-shrink: 0;
+    }
+    .country-code-select { background: transparent; border: none; color: white; font-weight: 700; cursor: pointer; outline: none; width: 70px; }
+    .country-code-select option { background: #1a9e4a; color: white; }
+    .wa-box input { border: none !important; background: transparent !important; padding-left: 1rem; flex: 1; outline: none; }
+
+    /* ==================== FIXED FOOTER ==================== */
+    .fixed-footer {
+      position: fixed; bottom: 0; left: 0; right: 0; background: var(--light);
+      padding: 1rem; border-top: 3px solid var(--border); z-index: 99;
+      box-shadow: 0 -4px 0px var(--border);
+    }
+    .fixed-footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: stretch; gap: 0.5rem; }
+    .error-toast {
+      width: 100%; background: rgba(255,71,87,0.1); color: var(--error);
+      padding: 0.75rem; border-radius: 10px; border: 2px solid var(--error);
+      text-align: center; font-size: 0.85rem; display: none; font-weight: 600;
+    }
+    .error-toast.visible { display: block; animation: fadeInUp 0.3s ease; }
+
+    .btn-pay {
+      width: 100%; border: 2.5px solid var(--border); border-radius: 50px;
+      background: var(--blue); color: white; padding: 1rem 2rem; font-size: 1rem;
+      font-weight: 800; cursor: pointer; display: flex; justify-content: center;
+      align-items: center; gap: 0.75rem; opacity: 0.45; pointer-events: none;
+      transition: var(--transition); box-shadow: var(--shadow-sm);
+      font-family: 'Space Grotesk', sans-serif; position: relative; overflow: hidden;
+    }
+    .btn-pay.enabled { opacity: 1; pointer-events: all; animation: pulse 2s infinite; }
+    .btn-pay.enabled:hover { background: var(--blue-dark); transform: translate(-3px,-3px); box-shadow: var(--shadow-lg); animation: none; }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      background: #1E293B; border-top: 3px solid var(--border);
+      padding: 28px 20px; margin-top: 0;
+    }
+    @media (min-width: 769px) { .footer { border-top-width: 4px; } }
+    .footer-bottom { text-align: center; color: rgba(255,255,255,0.5); font-size: 0.75rem; }
+
+    /* ==================== LOADING ==================== */
+    .loading-skeleton {
+      background: linear-gradient(90deg, var(--light-gray) 25%, var(--gray) 50%, var(--light-gray) 75%);
+      background-size: 200% 100%; animation: shimmer 1.5s infinite;
+      border: 2px solid var(--border); border-radius: var(--radius);
+    }
+
+    /* ==================== IMAGE LOADING & FALLBACK ==================== */
+    .banner-bg {
+      width: 100%; height: 100%; object-fit: cover;
+      background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
+      display: block;
+    }
+    /* Pastikan banner tetap terlihat (background biru) saat gambar loading */
+    .product-banner {
+      background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 60%, #3B82F6 100%);
+    }
+    .product-logo {
+      background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
+    }
+    .product-logo img {
+      width: 100%; height: 100%; object-fit: cover; border-radius: 8px;
+      display: block;
+      background: #2563EB;
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .section-card:hover, .package-card:hover { transform: none !important; }
+      .package-card:active { transform: scale(0.97) !important; }
+    }
+
+    @supports (padding: max(0px)) {
+      body { padding-top: calc(60px + env(safe-area-inset-top)); }
+      .navbar { height: calc(60px + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); }
+      .fixed-footer { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+      @media (min-width: 769px) {
+        body { padding-top: calc(80px + env(safe-area-inset-top)); }
+        .navbar { height: calc(80px + env(safe-area-inset-top)); }
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <div class="logo-image-container">
+          <img src="../image/logo.jpg" alt="GivaStore Logo" class="logo-image"
+               onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-bolt\' style=\'color:white;font-size:16px\'></i>'">
+        </div>
+        <div class="logo-text">
+          <div class="logo-main">GIVA<span>STORE</span></div>
+          <div class="logo-sub">APP PREMS</div>
+        </div>
+      </a>
+      <a href="../index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Kembali</a>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <!-- Sidebar Desktop -->
+    <aside class="desktop-sidebar">
+      <div class="sidebar-card" style="animation: slideInLeft 0.5s ease both 0.15s;">
+        <h3><i class="fas fa-shield-alt"></i> Keamanan Transaksi</h3>
+        <p style="font-size:0.85rem; color:var(--text-light); line-height:1.6;">Semua transaksi dijamin aman. Pesanan langsung diproses melalui gateway pembayaran terpercaya.</p>
+      </div>
+      <div class="sidebar-card" style="animation: slideInLeft 0.5s ease both 0.25s;">
+        <h3><i class="fas fa-bolt"></i> Keunggulan Kami</h3>
+        <div class="feature-item"><i class="fas fa-rocket"></i> <span>Proses Cepat (1–5 Menit)</span></div>
+        <div class="feature-item"><i class="fas fa-headset"></i> <span>Layanan 24/7</span></div>
+        <div class="feature-item"><i class="fas fa-shield-alt"></i> <span>Garansi Produk</span></div>
+        <div class="feature-item"><i class="fas fa-tag"></i> <span>Harga Terjangkau</span></div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Product Banner -->
+      <div class="product-header">
+        <div class="product-banner">
+          <img id="banner-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='240'%3E%3Crect width='1200' height='240' fill='%232563EB'/%3E%3Ctext x='600' y='130' text-anchor='middle' fill='white' font-size='28' font-family='sans-serif' opacity='0.7'%3EMemuat...%3C/text%3E%3C/svg%3E" alt="Product Banner" class="banner-bg">
+          <div class="product-info">
+            <div class="product-info-content">
+              <div class="product-logo">
+                <img id="product-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Crect width='150' height='150' rx='16' fill='%232563EB'/%3E%3Ctext x='75' y='95' text-anchor='middle' fill='white' font-size='40' font-weight='bold' font-family='sans-serif'%3E...%3C/text%3E%3C/svg%3E" alt="Product Logo">
+              </div>
+              <div class="product-details">
+                <h1 id="product-name">Memuat Produk...</h1>
+                <p id="product-description">Mohon tunggu sebentar...</p>
+                <div class="feature-list">
+                  <span class="feature-badge"><i class="fas fa-bolt"></i> Proses Cepat</span>
+                  <span class="feature-badge"><i class="fas fa-shield-alt"></i> Garansi</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 1: Data Akun -->
+      <div class="section-card reveal" id="account-data-section" style="animation-delay:0.1s;">
+        <div class="section-header">
+          <div class="step-badge">1</div>
+          <h2>Data Akun Tujuan</h2>
+        </div>
+        <div id="dynamic-fields-container">
+          <div class="form-group">
+            <label>Memuat Form...</label>
+            <input type="text" placeholder="..." disabled>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Pilih Paket -->
+      <div class="section-card reveal" style="animation-delay:0.18s;">
+        <div class="section-header">
+          <div class="step-badge">2</div>
+          <h2>Pilih Nominal / Paket</h2>
+        </div>
+        <div id="packages-container" class="packages-grid">
+          <div style="grid-column:1/-1; text-align:center; padding:2rem; color:var(--text-light);">
+            <i class="fas fa-spinner fa-spin" style="color:var(--blue);font-size:1.5rem;"></i>
+            <p style="margin-top:10px; font-weight:600;">Memuat paket harga...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Qty & Summary -->
+      <div class="section-card reveal" style="animation-delay:0.26s;">
+        <div class="section-header">
+          <div class="step-badge">3</div>
+          <h2>Jumlah &amp; Ringkasan Pesanan</h2>
+        </div>
+        <div class="form-group">
+          <label>Jumlah Pembelian</label>
+          <div class="qty-wrapper">
+            <button class="qty-btn" id="minus-btn"><i class="fas fa-minus"></i></button>
+            <input type="number" id="qty-input" class="qty-value" value="1" min="1" readonly>
+            <button class="qty-btn" id="plus-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+        <div class="order-summary">
+          <div class="summary-header">
+            <i class="fas fa-receipt"></i>
+            <h3>Ringkasan Pesanan</h3>
+          </div>
+          <div class="summary-content">
+            <div class="summary-row"><span>Produk</span><span id="summary-product">-</span></div>
+            <div class="summary-row"><span>Harga Satuan</span><span id="summary-price">Rp 0</span></div>
+            <div class="summary-row"><span>Jumlah</span><span id="summary-quantity">1 pcs</span></div>
+            <div class="summary-row" id="summary-promo-row" style="display:none;">
+              <span>Diskon</span><span id="summary-discount" style="color:var(--success);">0%</span>
+            </div>
+          </div>
+          <div class="summary-total">
+            <span class="total-label">Total Pembayaran</span>
+            <span class="total-amount" id="summary-total">Rp 0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Kontak & Promo -->
+      <div class="section-card reveal" style="animation-delay:0.34s;">
+        <div class="section-header">
+          <div class="step-badge">4</div>
+          <h2>Konfirmasi Kontak</h2>
+        </div>
+        <div class="form-group">
+          <label>Punya Kode Promo? <span style="color:var(--text-light);font-weight:500;">(Opsional)</span></label>
+          <div class="promo-group">
+            <input type="text" id="promo-code" placeholder="Masukkan kode promo">
+            <button class="btn-apply" id="apply-promo">Gunakan</button>
+          </div>
+          <div class="promo-message" id="promo-message"></div>
+        </div>
+        <div class="form-group">
+          <label class="field-required">Nomor WhatsApp</label>
+          <div class="wa-box">
+            <div class="wa-prefix">
+              <i class="fab fa-whatsapp"></i>
+              <select class="country-code-select" id="country-code-select">
+                <option value="62">+62 (ID)</option>
+                <option value="60">+60 (MY)</option>
+                <option value="65">+65 (SG)</option>
+              </select>
+            </div>
+            <input type="tel" id="contact-whatsapp" placeholder="81234xxxx">
+          </div>
+          <div class="input-hint"><i class="fas fa-shield-alt"></i> Digunakan untuk mengirim akun dan bukti transaksi.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>&copy; <span id="currentYear"></span> GivaStore App Prems. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Fixed Order Footer -->
+  <div class="fixed-footer">
+    <div class="fixed-footer-content">
+      <div class="error-toast" id="error-banner">Silakan lengkapi data pemesanan.</div>
+      <button class="btn-pay" id="order-button" disabled>
+        <i class="fas fa-lock"></i> Pesan Sekarang
+      </button>
+    </div>
+  </div>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = 'https://bctssploewjorllwpwkx.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjdHNzcGxvZXdqb3JsbHdwd2t4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NjE2OTcsImV4cCI6MjA5MjQzNzY5N30.ZmCFZMNQKV-sDsNk41ueg23FvM4W21xmIWvzpoThJAs';
+    let supabaseClient = null;
+    try { supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e) {}
+
+    // ==================== REVEAL ON SCROLL ====================
+    (function() {
+      var revealEls = document.querySelectorAll('.reveal');
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(function(el) { io.observe(el); });
+    })();
+
+    // ==================== RIPPLE ====================
+    function addRipple(el) {
+      if (!el) return;
+      el.addEventListener('click', function(e) {
+        var r = document.createElement('span');
+        r.className = 'ripple-effect';
+        var rect = el.getBoundingClientRect();
+        r.style.left = (e.clientX - rect.left - 5) + 'px';
+        r.style.top  = (e.clientY - rect.top - 5) + 'px';
+        el.appendChild(r);
+        setTimeout(function() { r.remove(); }, 600);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+      var productNameEl   = document.getElementById('product-name');
+      var productDescEl   = document.getElementById('product-description');
+      var bannerImage     = document.getElementById('banner-image');
+      var productLogo     = document.getElementById('product-logo');
+      var packagesContainer = document.getElementById('packages-container');
+      var dynamicFields   = document.getElementById('dynamic-fields-container');
+      var qtyInput        = document.getElementById('qty-input');
+      var minusBtn        = document.getElementById('minus-btn');
+      var plusBtn         = document.getElementById('plus-btn');
+      var summaryProduct  = document.getElementById('summary-product');
+      var summaryPrice    = document.getElementById('summary-price');
+      var summaryQty      = document.getElementById('summary-quantity');
+      var summaryTotal    = document.getElementById('summary-total');
+      var summaryPromoRow = document.getElementById('summary-promo-row');
+      var summaryDiscount = document.getElementById('summary-discount');
+      var promoInput      = document.getElementById('promo-code');
+      var promoMsg        = document.getElementById('promo-message');
+      var applyPromoBtn   = document.getElementById('apply-promo');
+      var contactWhatsapp = document.getElementById('contact-whatsapp');
+      var countryCodeSelect = document.getElementById('country-code-select');
+      var orderButton     = document.getElementById('order-button');
+      var errorBanner     = document.getElementById('error-banner');
+
+      var activeProduct = null;
+      var activePackages = [];
+      var activeInputs = [];
+      var selectedPackage = null;
+      var appliedPromo = null;
+
+      // ========== PROMO CODES (dari Supabase) ==========
+      // Tidak lagi hardcoded — validasi dilakukan langsung ke tabel promo_codes
+
+      function getSlug() {
+        return new URLSearchParams(window.location.search).get('product') || '';
+      }
+      function fixImagePath(p) {
+        if (!p) return '';
+        // Jika sudah URL lengkap (http/https), kembalikan langsung
+        if (p.startsWith('http://') || p.startsWith('https://')) return p;
+        // Jika path relatif dari root (misalnya /image/xxx.jpg), kembalikan langsung
+        if (p.startsWith('/')) return p;
+        // Jika path dimulai dengan image/ tanpa ../, tambahkan ../
+        if (!p.startsWith('../') && !p.startsWith('./')) return '../' + p;
+        return p;
+      }
+
+      // Placeholder SVG inline sebagai data URI (tidak butuh internet)
+      function placeholderBanner(text) {
+        var t = encodeURIComponent(text || 'Loading...');
+        return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='240'%3E%3Crect width='1200' height='240' fill='%232563EB'/%3E%3Crect x='0' y='0' width='1200' height='240' fill='url(%23g)'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231D4ED8'/%3E%3Cstop offset='1' stop-color='%232563EB'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='600' y='130' text-anchor='middle' fill='white' font-size='32' font-family='sans-serif' opacity='0.9'%3E" + t + "%3C/text%3E%3C/svg%3E";
+      }
+      function placeholderLogo(text) {
+        var t = encodeURIComponent((text || 'G').substring(0, 3).toUpperCase());
+        return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Crect width='150' height='150' rx='16' fill='%232563EB'/%3E%3Ctext x='75' y='95' text-anchor='middle' fill='white' font-size='52' font-weight='bold' font-family='sans-serif'%3E" + t + "%3C/text%3E%3C/svg%3E";
+      }
+      function fmt(n) { return 'Rp ' + (n || 0).toLocaleString('id-ID'); }
+
+      // ========== UPDATE SUMMARY ==========
+      function updateSummary() {
+        if (!selectedPackage) return;
+        var qty = parseInt(qtyInput.value) || 1;
+        var base = selectedPackage.price * qty;
+        var disc = 0;
+        if (appliedPromo) {
+          if (appliedPromo.discount_type === 'percentage') {
+            disc = Math.round(base * appliedPromo.discount);
+            if (appliedPromo.max_discount && disc > appliedPromo.max_discount) disc = appliedPromo.max_discount;
+          } else if (appliedPromo.discount_type === 'fixed') {
+            disc = Math.min(appliedPromo.fixed_amount, base);
+          }
+        }
+        var total = base - disc;
+        summaryProduct.textContent = activeProduct ? activeProduct.name : '-';
+        summaryPrice.textContent = fmt(selectedPackage.price);
+        summaryQty.textContent = qty + ' pcs';
+        summaryTotal.textContent = fmt(total);
+        if (appliedPromo) {
+          summaryPromoRow.style.display = 'flex';
+          summaryDiscount.textContent = '-' + fmt(disc) + ' (' + appliedPromo.label + ')';
+        } else {
+          summaryPromoRow.style.display = 'none';
+        }
+        validateOrder();
+      }
+
+      // ========== VALIDATE ==========
+      function validateOrder() {
+        var waVal = contactWhatsapp.value.trim();
+        var allFilled = true;
+        document.querySelectorAll('.account-field[data-required="true"]').forEach(function(f) {
+          if (!f.value.trim()) allFilled = false;
+        });
+        if (selectedPackage && waVal.length >= 8 && allFilled) {
+          orderButton.disabled = false;
+          orderButton.classList.add('enabled');
+          errorBanner.classList.remove('visible');
+        } else {
+          orderButton.disabled = true;
+          orderButton.classList.remove('enabled');
+        }
+      }
+
+      // ========== QTY CONTROLS ==========
+      minusBtn.addEventListener('click', function() {
+        var v = parseInt(qtyInput.value) || 1;
+        if (v > 1) { qtyInput.value = v - 1; updateSummary(); }
+      });
+      plusBtn.addEventListener('click', function() {
+        qtyInput.value = (parseInt(qtyInput.value) || 1) + 1;
+        updateSummary();
+      });
+      addRipple(minusBtn); addRipple(plusBtn);
+
+      // ========== PROMO ==========
+      applyPromoBtn.addEventListener('click', async function() {
+        var code = promoInput.value.trim().toUpperCase();
+        if (!code) {
+          promoMsg.className = 'promo-message error';
+          promoMsg.textContent = '❌ Masukkan kode promo terlebih dahulu.';
+          return;
+        }
+        if (!supabaseClient) {
+          promoMsg.className = 'promo-message error';
+          promoMsg.textContent = '❌ Koneksi ke server gagal. Coba refresh halaman.';
+          return;
+        }
+        applyPromoBtn.disabled = true;
+        applyPromoBtn.textContent = '...';
+
+        try {
+          var now = new Date().toISOString();
+          var { data, error } = await supabaseClient
+            .from('promo_codes')
+            .select('*')
+            .eq('code', code)
+            .eq('is_active', true)
+            .single();
+
+          applyPromoBtn.disabled = false;
+          applyPromoBtn.textContent = 'Gunakan';
+
+          if (error || !data) {
+            appliedPromo = null;
+            promoMsg.className = 'promo-message error';
+            promoMsg.textContent = '❌ Kode promo tidak valid atau sudah kadaluarsa.';
+            updateSummary();
+            return;
+          }
+
+          // Cek tanggal berlaku
+          if (data.valid_from && new Date(data.valid_from) > new Date(now)) {
+            appliedPromo = null;
+            promoMsg.className = 'promo-message error';
+            promoMsg.textContent = '❌ Kode promo belum berlaku.';
+            updateSummary();
+            return;
+          }
+          if (data.valid_until && new Date(data.valid_until) < new Date(now)) {
+            appliedPromo = null;
+            promoMsg.className = 'promo-message error';
+            promoMsg.textContent = '❌ Kode promo sudah kadaluarsa.';
+            updateSummary();
+            return;
+          }
+
+          // Cek batas penggunaan
+          if (data.max_usage !== null && data.max_usage !== undefined && data.used_count >= data.max_usage) {
+            appliedPromo = null;
+            promoMsg.className = 'promo-message error';
+            promoMsg.textContent = '❌ Kode promo sudah mencapai batas penggunaan.';
+            updateSummary();
+            return;
+          }
+
+          // Cek minimum order
+          if (selectedPackage && data.min_order_amount > 0) {
+            var qty = parseInt(qtyInput.value) || 1;
+            var base = selectedPackage.price * qty;
+            if (base < data.min_order_amount) {
+              appliedPromo = null;
+              promoMsg.className = 'promo-message error';
+              promoMsg.textContent = '❌ Minimum belanja Rp ' + Number(data.min_order_amount).toLocaleString('id-ID') + ' untuk menggunakan kode ini.';
+              updateSummary();
+              return;
+            }
+          }
+
+          // Promo valid — simpan dan hitung diskon
+          var discountLabel = data.discount_type === 'percentage'
+            ? data.discount_value + '%'
+            : 'Rp ' + Number(data.discount_value).toLocaleString('id-ID');
+
+          appliedPromo = {
+            id:             data.id,
+            discount_type:  data.discount_type,
+            discount:       data.discount_type === 'percentage' ? data.discount_value / 100 : null,
+            fixed_amount:   data.discount_type === 'fixed' ? data.discount_value : null,
+            max_discount:   data.max_discount_amount || null,
+            label:          discountLabel
+          };
+
+          promoMsg.className = 'promo-message success';
+          promoMsg.textContent = '✅ Kode promo berhasil! Diskon ' + discountLabel + ' diterapkan.';
+
+        } catch (e) {
+          applyPromoBtn.disabled = false;
+          applyPromoBtn.textContent = 'Gunakan';
+          appliedPromo = null;
+          promoMsg.className = 'promo-message error';
+          promoMsg.textContent = '❌ Terjadi kesalahan. Coba lagi.';
+        }
+
+        updateSummary();
+      });
+      addRipple(applyPromoBtn);
+
+      contactWhatsapp.addEventListener('input', validateOrder);
+
+      // ========== RENDER PACKAGES ==========
+      function renderPackagesList() {
+        packagesContainer.innerHTML = '';
+        if (!activePackages || activePackages.length === 0) {
+          packagesContainer.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-light);padding:2rem;">Tidak ada paket tersedia.</div>';
+          return;
+        }
+        activePackages.forEach(function(pkg, i) {
+          var card = document.createElement('div');
+          card.className = 'package-card';
+          card.style.animationDelay = (i * 0.07) + 's';
+          card.innerHTML =
+            '<div class="package-name">' + pkg.name + '</div>' +
+            '<div class="package-price">' + fmt(pkg.price) + '</div>' +
+            (pkg.duration ? '<div class="package-duration">' + pkg.duration + '</div>' : '');
+          card.addEventListener('click', function() {
+            document.querySelectorAll('.package-card').forEach(function(c) { c.classList.remove('selected'); });
+            card.classList.add('selected');
+            selectedPackage = pkg;
+            updateSummary();
+          });
+          addRipple(card);
+          packagesContainer.appendChild(card);
+        });
+      }
+
+      // ========== RENDER INPUT FORM ==========
+      function renderInputForm() {
+        dynamicFields.innerHTML = '';
+        if (!activeInputs || activeInputs.length === 0) {
+          dynamicFields.innerHTML = '<p style="color:var(--text-light);font-size:0.9rem;">Tidak ada data tambahan diperlukan.</p>';
+          return;
+        }
+        activeInputs.forEach(function(inp, i) {
+          var fg = document.createElement('div');
+          fg.className = 'form-group';
+          var lbl = document.createElement('label');
+          if (inp.is_required) lbl.className = 'field-required';
+          lbl.textContent = inp.label || inp.name;
+          var input = document.createElement('input');
+          input.type = inp.type || 'text';
+          input.placeholder = inp.placeholder || '';
+          input.className = 'account-field';
+          input.dataset.required = inp.is_required ? 'true' : 'false';
+          input.name = inp.name || 'field_' + i;
+          input.style.animationDelay = (i * 0.08) + 's';
+          input.addEventListener('input', validateOrder);
+          fg.appendChild(lbl);
+          fg.appendChild(input);
+          if (inp.hint) {
+            var hint = document.createElement('div');
+            hint.className = 'input-hint';
+            hint.innerHTML = '<i class="fas fa-info-circle"></i> ' + inp.hint;
+            fg.appendChild(hint);
+          }
+          dynamicFields.appendChild(fg);
+        });
+      }
+
+      // ========== ORDER BUTTON ==========
+      orderButton.addEventListener('click', function() {
+        if (orderButton.disabled) return;
+        var waNum = contactWhatsapp.value.trim();
+        var countryCode = countryCodeSelect.value;
+        var fullWa = countryCode + waNum;
+        var accountDetails = {};
+        document.querySelectorAll('.account-field').forEach(function(input) {
+          accountDetails[input.name || 'data'] = input.value;
+        });
+        var qty = parseInt(qtyInput.value) || 1;
+        var base = selectedPackage.price * qty;
+        var promoDisc = 0;
+        if (appliedPromo) {
+          if (appliedPromo.discount_type === 'percentage') {
+            promoDisc = Math.round(base * appliedPromo.discount);
+            if (appliedPromo.max_discount && promoDisc > appliedPromo.max_discount) promoDisc = appliedPromo.max_discount;
+          } else if (appliedPromo.discount_type === 'fixed') {
+            promoDisc = Math.min(appliedPromo.fixed_amount, base);
+          }
+        }
+        var finalPrice = Math.max(0, base - promoDisc);
+        var orderId = 'GIVA-' + Date.now().toString().substring(5);
+        var orderData = {
+          order_id: orderId,
+          product: activeProduct ? activeProduct.name : 'Produk Digital',
+          package: selectedPackage.name,
+          price: selectedPackage.price,
+          quantity: qty,
+          total: finalPrice,
+          fullWhatsapp: fullWa,
+          accountData: accountDetails,
+          timestamp: Date.now()
+        };
+        try { localStorage.setItem('ProductOrderData', JSON.stringify(orderData)); } catch(e) {}
+        orderButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghubungkan...';
+        orderButton.classList.remove('enabled');
+        orderButton.disabled = true;
+        setTimeout(function() {
+          window.location.href = '../pages/bayar?order_id=' + orderId +
+            '&product=' + encodeURIComponent(orderData.product) +
+            '&amount=' + finalPrice + '&wa=' + fullWa;
+        }, 600);
+      });
+      addRipple(orderButton);
+
+      // ========== FALLBACK ==========
+      function loadFallbackDetails(slug) {
+        activeProduct = { id: '1', name: slug.toUpperCase(), description: 'Layanan premium digital bergaransi penuh', image_url: '../image/netflix.png' };
+        activePackages = [
+          { id: '101', name: 'Paket Sharing 1 Bulan', price: 25000, duration: '1 BULAN' },
+          { id: '102', name: 'Paket Private 1 Bulan', price: 120000, duration: '1 BULAN' },
+          { id: '103', name: 'Paket Private 3 Bulan', price: 300000, duration: '3 BULAN' }
+        ];
+        activeInputs = [{ name: 'email', label: 'Email Terdaftar', type: 'email', placeholder: 'contoh@gmail.com', is_required: true, hint: 'Masukkan email aktif Anda' }];
+        if (productNameEl) productNameEl.textContent = activeProduct.name;
+        if (productDescEl) productDescEl.textContent = activeProduct.description;
+        if (bannerImage) {
+          var fb = fixImagePath(activeProduct.image_url);
+          if (fb) {
+            bannerImage.src = fb;
+            bannerImage.onerror = function() { this.src = placeholderBanner(slug); this.onerror = null; };
+          } else {
+            bannerImage.src = placeholderBanner(slug);
+          }
+        }
+        if (productLogo) {
+          var fl = fixImagePath(activeProduct.image_url);
+          if (fl) {
+            productLogo.src = fl;
+            productLogo.onerror = function() { this.src = placeholderLogo(slug); this.onerror = null; };
+          } else {
+            productLogo.src = placeholderLogo(slug);
+          }
+        }
+        renderInputForm(); renderPackagesList();
+      }
+
+      // ========== FETCH SUPABASE ==========
+      async function fetchProductDetails() {
+        var slug = getSlug();
+        try {
+          if (!supabaseClient) throw new Error('Supabase tidak aktif.');
+          var prodResult = await supabaseClient.from('products').select('*').eq('slug', slug).single();
+          if (prodResult.error || !prodResult.data) throw prodResult.error || new Error('Produk tidak ditemukan.');
+          activeProduct = prodResult.data;
+          if (productNameEl) productNameEl.textContent = activeProduct.name;
+          if (productDescEl) productDescEl.textContent = activeProduct.description;
+          if (bannerImage) {
+            var imgUrl = fixImagePath(activeProduct.image_url);
+            if (imgUrl) {
+              bannerImage.src = imgUrl;
+              bannerImage.onerror = function() { this.src = placeholderBanner(activeProduct.name); this.onerror = null; };
+            } else {
+              bannerImage.src = placeholderBanner(activeProduct.name);
+            }
+          }
+          if (productLogo) {
+            var logoUrl = fixImagePath(activeProduct.image_url);
+            if (logoUrl) {
+              productLogo.src = logoUrl;
+              productLogo.onerror = function() { this.src = placeholderLogo(activeProduct.name); this.onerror = null; };
+            } else {
+              productLogo.src = placeholderLogo(activeProduct.name);
+            }
+          }
+          document.title = activeProduct.name + ' | GIVASTORE.ID';
+          var pkgResult = await supabaseClient.from('product_packages').select('*').eq('product_id', activeProduct.id);
+          if (!pkgResult.error) { activePackages = pkgResult.data || []; }
+          var inpResult = await supabaseClient.from('product_inputs').select('*').eq('product_id', activeProduct.id);
+          if (!inpResult.error) { activeInputs = inpResult.data || []; }
+          renderInputForm(); renderPackagesList();
+        } catch(err) {
+          console.warn('Supabase gagal, pakai fallback lokal:', err);
+          loadFallbackDetails(slug);
+        }
+      }
+      fetchProductDetails();
+    });
+  </script>
+</body>
+</html>
