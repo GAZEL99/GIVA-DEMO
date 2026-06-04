@@ -273,14 +273,7 @@
     .btn-home { background: white; }
     .btn-wa   { background: #22C55E; color: white; border-color: #16A34A; box-shadow: 4px 4px 0 #16A34A; }
 
-    /* ==================== COUNTDOWN ==================== */
-    .countdown-wrap {
-      background: var(--light-gray); border: 2px solid var(--border); border-radius: var(--radius);
-      padding: 16px 18px; display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 24px;
-    }
-    .countdown-label { font-size: 0.82rem; color: var(--text-light); display: flex; align-items: center; gap: 6px; }
-    .countdown-num { font-size: 2rem; font-weight: 900; color: var(--blue); font-family: 'DM Mono', monospace; }
+
 
     /* ==================== FOOTER ==================== */
     .footer {
@@ -406,11 +399,6 @@
       </button>
     </div>
 
-    <!-- COUNTDOWN -->
-    <div class="countdown-wrap">
-      <div class="countdown-label"><i class="fas fa-clock"></i> Redirect otomatis ke Home dalam</div>
-      <div class="countdown-num" id="countdownNum">60</div>
-    </div>
 
   </div><!-- /main-container -->
 
@@ -420,9 +408,12 @@
 
   <script>
     // ==================== CONFIG SUPABASE ====================
-    const SUPABASE_URL     = 'https://bctssploewjorllwpwkx.supabase.co';
+    const SUPABASE_URL      = 'https://bctssploewjorllwpwkx.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjdHNzcGxvZXdqb3JsbHdwd2t4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NjE2OTcsImV4cCI6MjA5MjQzNzY5N30.ZmCFZMNQKV-sDsNk41ueg23FvM4W21xmIWvzpoThJAs';
-    const supabaseClient  = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabaseClient    = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const BOT_TOKEN = '8298329168:AAHkncNR2LwSgqiNaA-KfwyyS-7JRf1GgCY';
+    const CHAT_ID   = '7604853514';
 
     // Ambil order_id dari URL
     function getOrderId() {
@@ -435,112 +426,135 @@
       return 'Rp ' + Number(v || 0).toLocaleString('id-ID');
     }
 
+    // Kirim notifikasi Telegram saat halaman success dibuka
+    async function sendTelegramPaid(order) {
+      const msg =
+        '<b>✅ PEMBAYARAN BERHASIL ✅</b>\n\n' +
+        '🆔 Order ID: <code>' + order.order_id + '</code>\n' +
+        '📦 Produk: <b>' + (order.product_name || '—') + '</b>\n' +
+        '📋 Paket: ' + (order.package_name || '—') + '\n' +
+        '🔢 Jumlah: ' + (order.quantity || 1) + ' pcs\n' +
+        '💰 Total: <b>' + fmtRp(order.total_amount) + '</b>\n' +
+        '💳 Metode: ' + (order.payment_method || 'QRIS') + '\n' +
+        '📱 WhatsApp: ' + (order.customer_whatsapp || order.whatsapp_number || '—') + '\n' +
+        '⏰ Waktu: ' + new Date().toLocaleString('id-ID') + '\n\n' +
+        '⚡ Segera proses pesanan ini!';
+      try {
+        await fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: CHAT_ID, text: msg, parse_mode: 'HTML' })
+        });
+      } catch(e) { console.error('Telegram error:', e); }
+    }
+
     // Render data pesanan ke layar
     async function loadOrderDetails() {
       const orderId = getOrderId();
-      let order = null;
 
-      // 1. Coba dari Supabase
-      if (orderId && supabaseClient) {
+      // Wajib ada order_id di URL
+      if (!orderId) {
+        showError('Tidak ada ID pesanan di URL. Pastikan link yang Anda buka sudah benar.');
+        return;
+      }
+
+      // Retry query ke Supabase maksimal 5x (beri waktu DB menyimpan dari bayar.html)
+      let order = null;
+      for (let attempt = 1; attempt <= 5; attempt++) {
         try {
           const { data, error } = await supabaseClient
             .from('orders')
             .select('*')
             .eq('order_id', orderId)
             .single();
-          if (!error && data) order = data;
+          if (!error && data) { order = data; break; }
         } catch (e) {
-          console.error('Gagal menarik data Supabase:', e);
+          console.error('Attempt ' + attempt + ' gagal:', e);
         }
+        if (attempt < 5) await new Promise(r => setTimeout(r, 1500));
       }
 
-      // 2. Fallback dari localStorage
+      // Tidak ada data setelah semua retry
       if (!order) {
-        try {
-          const raw = localStorage.getItem('ProductOrderData');
-          if (raw) {
-            const localData = JSON.parse(raw);
-            if (localData && (!orderId || localData.order_id === orderId)) {
-              order = {
-                order_id:       localData.order_id || orderId || 'GIVA-ORDER',
-                product_name:   localData.product  || localData.product_name  || '—',
-                package_name:   localData.package  || localData.package_name  || '—',
-                quantity:       localData.quantity  || 1,
-                total_amount:   localData.total     || localData.total_amount  || 0,
-                payment_method: localData.payment_method || 'QRIS',
-                whatsapp_number:localData.whatsapp  || localData.whatsapp_number || '—',
-                status:         localData.status    || 'pending',
-              };
-            }
-          }
-        } catch (e) {
-          console.error('Gagal baca localStorage:', e);
-        }
-      }
-
-      // 3. Tidak ada data
-      if (!order) {
-        document.getElementById('orderDetailsContent').innerHTML = `
-          <div class="error-state">
-            <i class="fas fa-exclamation-triangle"></i>
-            <strong>Detail pesanan tidak ditemukan.</strong>
-            <p>Kemungkinan data belum tersimpan atau terjadi koneksi terputus.<br>Silakan hubungi admin dengan menekan tombol WhatsApp di bawah.</p>
-          </div>`;
-        document.getElementById('realtimeBadge').innerHTML = '<span class="realtime-badge" style="background:rgba(255,71,87,0.1);color:#FF4757;border-color:#FF4757"><i class="fas fa-exclamation"></i> Gagal</span>';
+        showError('Data pesanan <b>' + orderId + '</b> tidak ditemukan di database.<br>Kemungkinan pembayaran belum terkonfirmasi. Silakan hubungi admin.');
         return;
       }
 
-      // 4. Tampilkan data
+      // Tampilkan data
       document.getElementById('badgeName').textContent  = order.product_name || '—';
       document.getElementById('badgePrice').textContent = fmtRp(order.total_amount);
 
-      document.getElementById('orderDetailsContent').innerHTML = `
-        <div class="order-row">
-          <span class="order-label">ID Pesanan</span>
-          <span class="order-value mono blue">${order.order_id || '—'}</span>
-        </div>
-        <div class="order-row">
-          <span class="order-label">Produk</span>
-          <span class="order-value">${order.product_name || '—'}</span>
-        </div>
-        <div class="order-row">
-          <span class="order-label">Paket</span>
-          <span class="order-value">${order.package_name || '—'}</span>
-        </div>
-        <div class="order-row">
-          <span class="order-label">Jumlah</span>
-          <span class="order-value">${order.quantity || 1} pcs</span>
-        </div>
-        <div class="order-row">
-          <span class="order-label">Metode Bayar</span>
-          <span class="order-value">${order.payment_method || 'QRIS'}</span>
-        </div>
-        <div class="order-row">
-          <span class="order-label">WhatsApp</span>
-          <span class="order-value mono">${order.whatsapp_number || '—'}</span>
-        </div>
-        <div class="order-row">
-          <span class="order-label">Total Bayar</span>
-          <span class="order-value total">${fmtRp(order.total_amount)}</span>
-        </div>`;
+      document.getElementById('orderDetailsContent').innerHTML =
+        '<div class="order-row">' +
+          '<span class="order-label">ID Pesanan</span>' +
+          '<span class="order-value mono blue">' + (order.order_id || '—') + '</span>' +
+        '</div>' +
+        '<div class="order-row">' +
+          '<span class="order-label">Produk</span>' +
+          '<span class="order-value">' + (order.product_name || '—') + '</span>' +
+        '</div>' +
+        '<div class="order-row">' +
+          '<span class="order-label">Paket</span>' +
+          '<span class="order-value">' + (order.package_name || '—') + '</span>' +
+        '</div>' +
+        '<div class="order-row">' +
+          '<span class="order-label">Jumlah</span>' +
+          '<span class="order-value">' + (order.quantity || 1) + ' pcs</span>' +
+        '</div>' +
+        '<div class="order-row">' +
+          '<span class="order-label">Metode Bayar</span>' +
+          '<span class="order-value">' + (order.payment_method || 'QRIS') + '</span>' +
+        '</div>' +
+        '<div class="order-row">' +
+          '<span class="order-label">WhatsApp</span>' +
+          '<span class="order-value mono">' + (order.customer_whatsapp || order.whatsapp_number || '—') + '</span>' +
+        '</div>' +
+        '<div class="order-row">' +
+          '<span class="order-label">Total Bayar</span>' +
+          '<span class="order-value total">' + fmtRp(order.total_amount) + '</span>' +
+        '</div>';
 
-      document.getElementById('realtimeBadge').innerHTML = '<span class="realtime-badge live"><i class="fas fa-circle" style="font-size:.5rem"></i> LIVE</span>';
+      document.getElementById('realtimeBadge').innerHTML =
+        '<span class="realtime-badge live"><i class="fas fa-circle" style="font-size:.5rem"></i> LIVE</span>';
 
       updateTimelineState(order.status || 'pending');
 
-      // 5. Real-time listener
-      if (orderId) {
-        supabaseClient
-          .channel('order-status-change')
-          .on('postgres_changes', {
-            event: 'UPDATE', schema: 'public',
-            table: 'orders', filter: `order_id=eq.${orderId}`
-          }, payload => {
-            console.log('Status diperbarui:', payload.new);
-            updateTimelineState(payload.new.status);
-          })
-          .subscribe();
+      // Kirim notifikasi Telegram pembayaran berhasil
+      await sendTelegramPaid(order);
+
+      // Update status order di DB menjadi 'paid' jika masih pending
+      if ((order.status || '').toLowerCase() === 'pending') {
+        try {
+          await supabaseClient
+            .from('orders')
+            .update({ status: 'paid' })
+            .eq('order_id', orderId);
+        } catch(e) { console.error('Gagal update status:', e); }
       }
+
+      // Real-time listener perubahan status
+      supabaseClient
+        .channel('order-status-' + orderId)
+        .on('postgres_changes', {
+          event: 'UPDATE', schema: 'public',
+          table: 'orders', filter: 'order_id=eq.' + orderId
+        }, payload => {
+          updateTimelineState(payload.new.status);
+        })
+        .subscribe();
+    }
+
+    function showError(msg) {
+      document.getElementById('orderDetailsContent').innerHTML =
+        '<div class="error-state">' +
+          '<i class="fas fa-exclamation-triangle"></i>' +
+          '<strong>Detail pesanan tidak ditemukan.</strong>' +
+          '<p>' + msg + '</p>' +
+        '</div>';
+      document.getElementById('realtimeBadge').innerHTML =
+        '<span class="realtime-badge" style="background:rgba(255,71,87,0.1);color:#FF4757;border-color:#FF4757">' +
+          '<i class="fas fa-exclamation"></i> Gagal' +
+        '</span>';
     }
 
     function updateTimelineState(status) {
@@ -551,7 +565,9 @@
       const tlDot3      = document.getElementById('tlDot3');
       if (!progressBar) return;
 
-      const isSuccess = ['sukses','success','completed','lunas','selesai'].includes((status||'').toLowerCase());
+      const s = (status || '').toLowerCase();
+      const isSuccess = ['sukses','success','completed','lunas','selesai'].includes(s);
+      const isProcessing = ['paid','processing'].includes(s);
 
       if (isSuccess) {
         progressBar.style.width = '100%';
@@ -561,7 +577,7 @@
         tlNote2.textContent  = 'Pembayaran terverifikasi dan pesanan selesai diproses!';
         tlDot3.className = 'tl-dot done';
         tlDot3.innerHTML = '<i class="fas fa-check"></i>';
-      } else if (['paid','processing'].includes((status||'').toLowerCase())) {
+      } else if (isProcessing) {
         progressBar.style.width = '66%';
         tlDot2.className = 'tl-dot active';
         tlDot2.innerHTML = '<i class="fas fa-cog fa-spin"></i>';
@@ -580,25 +596,15 @@
       }
     }
 
-    function startRedirectTimer() {
-      let time = 60;
-      const el = document.getElementById('countdownNum');
-      const interval = setInterval(() => {
-        time--;
-        if (el) el.textContent = time;
-        if (time <= 0) { clearInterval(interval); window.location.href = '../index.html'; }
-      }, 1000);
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('currentYear').textContent = new Date().getFullYear();
       loadOrderDetails();
-      startRedirectTimer();
 
       document.getElementById('waBtn').addEventListener('click', () => {
         const orderId = getOrderId() || 'GIVA-ORDER';
         window.open(
-          `https://wa.me/6285189139082?text=Halo%20Admin%20GIVASTORE%2C%20saya%20sudah%20membayar%20pesanan%20ID%20${encodeURIComponent(orderId)}.%20Mohon%20bantuannya.`,
+          'https://wa.me/6285189139082?text=Halo%20Admin%20GIVASTORE%2C%20saya%20sudah%20membayar%20pesanan%20ID%20' +
+          encodeURIComponent(orderId) + '.%20Mohon%20bantuannya.',
           '_blank'
         );
       });
