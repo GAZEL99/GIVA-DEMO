@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Pembayaran | GIVASTORE.ID</title>
+  <meta name="description" content="Halaman Pembayaran GIVASTORE.ID">
+  <link rel="icon" href="../image/logo.jpg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+  <style>
+    :root {
+      --blue: #2563EB;
+      --blue-dark: #1D4ED8;
+      --blue-light: #DBEAFE;
+      --primary: #1E293B;
+      --accent: #2563EB;
+      --text-dark: #1E293B;
+      --text: #334155;
+      --text-light: #64748B;
+      --light: #FFFFFF;
+      --light-gray: #F1F5F9;
+      --gray: #E2E8F0;
+      --border: #1E293B;
+      --shadow: 4px 4px 0px var(--border);
+      --shadow-sm: 2px 2px 0px var(--border);
+      --shadow-lg: 6px 6px 0px var(--border);
+      --radius: 14px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --error: #EF4444;
+      --warning: #F59E0B;
+      --success: #22C55E;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    @media (max-width: 768px) { html { font-size: 15px; } }
+    @media (max-width: 480px) { html { font-size: 14px; } }
+
+    body {
+      background: #FFFFFF;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      border: 3px solid var(--border);
+      padding-top: 60px;
+      font-family: 'Poppins', sans-serif;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+    @media (min-width: 769px) {
+      body {
+        background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
+        background-size: 28px 28px;
+        border-width: 6px;
+        padding-top: 80px;
+      }
+    }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes popIn { 0% { opacity: 0; transform: scale(0.75); } 70% { transform: scale(1.05); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.35); } 50% { box-shadow: 0 0 0 10px rgba(37,99,235,0); } }
+    @keyframes navbarIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes successBounce { 0% { transform: scale(0) rotate(-15deg); } 60% { transform: scale(1.2) rotate(5deg); } 100% { transform: scale(1) rotate(0deg); } }
+    @keyframes countdownShrink { from { width: 100%; } to { width: 0%; } }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #FFFFFF; border-bottom: 3px solid var(--border);
+      z-index: 1000; height: 60px; display: flex; align-items: center;
+      box-shadow: 0 3px 0px var(--border); animation: navbarIn 0.4s ease both;
+    }
+    @media (min-width: 769px) { .navbar { height: 80px; border-bottom-width: 4px; } }
+    @media (max-width: 480px) { .navbar { height: 55px; } }
+
+    .nav-container {
+      width: 100%; max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 15px;
+    }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
+    .logo-image-container {
+      position: relative; width: 40px; height: 40px;
+      border: 2px solid var(--border); box-shadow: var(--shadow-sm);
+      transform: rotate(-5deg); transition: var(--transition);
+      overflow: hidden; background: var(--blue); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-image-container:hover { transform: rotate(0deg); }
+    @media (min-width: 769px) { .logo-image-container { width: 50px; height: 50px; border-width: 3px; } }
+    .logo-image { width: 100%; height: 100%; object-fit: cover; }
+    .logo-text { display: flex; flex-direction: column; }
+    .logo-main { font-size: 1.2rem; font-weight: 900; color: var(--border); line-height: 1; letter-spacing: -0.5px; font-family: 'Cabinet Grotesk', 'Space Grotesk', sans-serif; }
+    .logo-main span { color: var(--accent); }
+    .logo-sub { font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; margin-top: 2px; color: var(--blue-dark); text-transform: uppercase; }
+
+    /* MAIN */
+    .main-container { max-width: 680px; margin: 32px auto; padding: 0 15px; animation: fadeInUp 0.5s ease both 0.05s; }
+    @media (max-width: 480px) { .main-container { margin: 20px auto; } }
+
+    /* STEP INDICATOR */
+    .step-indicator {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin-bottom: 2rem;
+      animation: fadeInUp 0.5s ease both 0.1s;
+    }
+    .step-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .step-circle {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 2.5px solid var(--border); display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.9rem; background: var(--light-gray); color: var(--text-light);
+      font-family: 'Space Grotesk', sans-serif; transition: var(--transition); box-shadow: var(--shadow-sm);
+    }
+    .step-circle.active { background: var(--blue); color: white; box-shadow: var(--shadow); }
+    .step-circle.done { background: var(--success); color: white; box-shadow: var(--shadow-sm); }
+    .step-label { font-size: 0.7rem; font-weight: 700; color: var(--text-light); text-align: center; max-width: 70px; }
+    .step-label.active { color: var(--blue); }
+    .step-line { height: 2.5px; width: 50px; background: var(--gray); border-radius: 2px; margin-bottom: 22px; transition: var(--transition); }
+    .step-line.done { background: var(--success); }
+    @media (max-width: 480px) { .step-line { width: 30px; } .step-circle { width: 34px; height: 34px; font-size: 0.8rem; } }
+
+    /* CARDS */
+    .section-card {
+      background: var(--light); border: 2.5px solid var(--border); border-radius: var(--radius);
+      padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-sm);
+      transition: var(--transition); animation: fadeInUp 0.5s ease both;
+    }
+    .section-card:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow); }
+    @media (hover: none) { .section-card:hover { transform: none !important; } }
+
+    .card-title {
+      font-size: 1.1rem; font-weight: 800; color: var(--text-dark);
+      font-family: 'Space Grotesk', sans-serif; margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem; border-bottom: 2px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card-title i { color: var(--blue); }
+
+    /* ORDER SUMMARY */
+    .order-id-box {
+      background: var(--light-gray); border: 2px solid var(--border);
+      border-radius: 10px; padding: 1rem 1.25rem; text-align: center; margin-bottom: 1rem;
+    }
+    .order-id-val {
+      font-family: 'DM Mono', monospace; font-size: 1.3rem; font-weight: 700;
+      color: var(--blue); letter-spacing: 2px;
+    }
+    .order-id-label { font-size: 0.75rem; color: var(--text-light); font-weight: 600; margin-bottom: 4px; }
+    .info-row { display: flex; justify-content: space-between; align-items: center; padding: 0.65rem 0; border-bottom: 1px dashed var(--gray); gap: 1rem; }
+    .info-row:last-child { border-bottom: none; }
+    .info-label { color: var(--text-light); font-size: 0.875rem; flex-shrink: 0; }
+    .info-value { color: var(--text-dark); font-weight: 700; text-align: right; word-break: break-all; }
+    .total-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--blue-light); border-radius: 10px; border: 2px solid var(--blue); margin-top: 1rem; }
+    .total-label { font-weight: 800; color: var(--text-dark); font-family: 'Space Grotesk', sans-serif; }
+    .total-val { font-size: 1.5rem; font-weight: 900; color: var(--blue); font-family: 'DM Mono', monospace; }
+
+    /* PAYMENT METHOD GRID */
+    .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 380px) { .method-grid { grid-template-columns: 1fr; } }
+
+    .method-card {
+      border: 2.5px solid var(--border); border-radius: 12px; padding: 14px 12px;
+      cursor: pointer; transition: var(--transition); background: var(--light);
+      box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 12px;
+      position: relative; overflow: hidden;
+    }
+    .method-card:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow); }
+    .method-card.selected { border-color: var(--blue); background: var(--blue-light); box-shadow: var(--shadow); }
+    .method-card.selected::after {
+      content: '✓'; position: absolute; top: 8px; right: 10px;
+      color: var(--blue); font-weight: 900; font-size: 0.85rem;
+    }
+    .method-icon {
+      width: 40px; height: 40px; border-radius: 8px; border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      font-size: 1.1rem; box-shadow: var(--shadow-sm);
+    }
+    .method-info { min-width: 0; }
+    .method-name { font-weight: 800; font-size: 0.85rem; color: var(--text-dark); font-family: 'Space Grotesk', sans-serif; line-height: 1.2; }
+    .method-desc { font-size: 0.72rem; color: var(--text-light); margin-top: 2px; }
+
+    /* BUTTONS */
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 1rem 1.5rem; border: 2.5px solid var(--border); border-radius: 50px;
+      font-weight: 800; font-size: 1rem; cursor: pointer; transition: var(--transition);
+      text-decoration: none; width: 100%; margin-top: 1rem;
+      font-family: 'Space Grotesk', sans-serif; box-shadow: var(--shadow-sm);
+    }
+    .btn-primary { background: var(--blue); color: white; }
+    .btn-primary:hover { background: var(--blue-dark); transform: translate(-3px,-3px); box-shadow: var(--shadow-lg); }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none !important; }
+    .btn-primary.pulsing { animation: pulse 2s infinite; }
+    .btn-secondary { background: var(--light); color: var(--text-dark); }
+    .btn-secondary:hover { background: var(--light-gray); transform: translate(-2px,-2px); }
+    .btn-danger { background: #FEF2F2; color: var(--error); border-color: var(--error); }
+    .btn-danger:hover { background: #FEE2E2; transform: translate(-2px,-2px); box-shadow: 4px 4px 0px var(--error); }
+
+    /* PAYMENT SCREEN */
+    .payment-screen { display: none; animation: slideIn 0.4s ease both; }
+    .payment-screen.active { display: block; }
+
+    .qr-wrapper {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 1.5rem; background: var(--light-gray); border: 2px solid var(--border);
+      border-radius: 14px; margin: 1rem 0;
+    }
+    .qr-canvas-box {
+      background: white; padding: 14px; border-radius: 12px;
+      border: 2.5px solid var(--border); box-shadow: var(--shadow);
+      margin-bottom: 1rem;
+    }
+    #qrCanvas { display: block; }
+    .qr-amount {
+      font-size: 1.6rem; font-weight: 900; color: var(--blue);
+      font-family: 'DM Mono', monospace; margin-bottom: 4px;
+    }
+    .qr-info { font-size: 0.8rem; color: var(--text-light); font-weight: 600; }
+
+    .va-box {
+      background: var(--light-gray); border: 2.5px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; margin: 1rem 0; text-align: center;
+    }
+    .va-label { font-size: 0.8rem; color: var(--text-light); font-weight: 600; margin-bottom: 8px; }
+    .va-number {
+      font-family: 'DM Mono', monospace; font-size: 1.6rem; font-weight: 700;
+      color: var(--text-dark); letter-spacing: 3px; word-break: break-all;
+    }
+    @media (max-width: 480px) { .va-number { font-size: 1.2rem; letter-spacing: 1px; } }
+    .va-copy-btn {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
+      padding: 6px 16px; border: 2px solid var(--border); border-radius: 50px;
+      background: white; cursor: pointer; font-weight: 700; font-size: 0.8rem;
+      box-shadow: var(--shadow-sm); transition: var(--transition);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .va-copy-btn:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow); }
+
+    /* COUNTDOWN */
+    .countdown-box {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+      background: rgba(245,158,11,0.08); border: 2px solid var(--warning);
+      border-radius: 10px; margin: 1rem 0;
+    }
+    .countdown-icon { color: var(--warning); font-size: 1.1rem; animation: spin 3s linear infinite; }
+    .countdown-text { flex: 1; }
+    .countdown-label { font-size: 0.75rem; color: var(--text-light); font-weight: 600; }
+    .countdown-time { font-family: 'DM Mono', monospace; font-weight: 700; font-size: 1rem; color: var(--text-dark); }
+    .countdown-bar-track { height: 6px; background: var(--gray); border-radius: 3px; margin-top: 6px; overflow: hidden; }
+    .countdown-bar { height: 100%; background: var(--warning); border-radius: 3px; transition: width 1s linear; }
+
+    /* STATUS BADGE */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 50px; font-weight: 700; font-size: 0.82rem;
+      border: 2px solid; font-family: 'Space Grotesk', sans-serif;
+    }
+    .status-pending { border-color: var(--warning); background: rgba(245,158,11,0.1); color: #92400e; }
+    .status-success { border-color: var(--success); background: rgba(34,197,94,0.1); color: #14532d; }
+    .status-failed  { border-color: var(--error); background: rgba(239,68,68,0.1); color: #7f1d1d; }
+
+    .polling-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--warning); display: inline-block;
+      animation: pulse 1.2s infinite;
+    }
+
+    /* SUCCESS SCREEN */
+    .success-screen { display: none; text-align: center; padding: 2rem 1rem; animation: fadeInUp 0.5s ease both; }
+    .success-screen.active { display: block; }
+    .success-icon {
+      width: 90px; height: 90px; border-radius: 50%;
+      background: rgba(34,197,94,0.12); border: 3px solid var(--success);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem; font-size: 2.5rem; color: var(--success);
+      animation: successBounce 0.6s ease both;
+    }
+    .success-title { font-size: 1.8rem; font-weight: 900; color: var(--text-dark); font-family: 'Cabinet Grotesk', 'Space Grotesk', sans-serif; margin-bottom: 0.5rem; }
+    .success-sub { color: var(--text-light); font-size: 0.9rem; margin-bottom: 2rem; }
+
+    /* SKELETON / LOADING */
+    .loading-spinner {
+      width: 40px; height: 40px; border: 3px solid var(--gray);
+      border-top-color: var(--blue); border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 20px auto;
+    }
+
+    /* NOTIFICATION TOAST */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: var(--text-dark); color: white; padding: 12px 24px;
+      border-radius: 50px; font-weight: 700; font-size: 0.85rem;
+      box-shadow: var(--shadow-lg); z-index: 9999;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: 'Space Grotesk', sans-serif; white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 4rem 2rem; animation: fadeInUp 0.5s ease both; }
+    .empty-icon {
+      width: 80px; height: 80px; border-radius: 50%; background: rgba(239,68,68,0.1);
+      border: 3px solid var(--error); display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem; font-size: 2rem; color: var(--error);
+      animation: popIn 0.5s ease both 0.1s;
+    }
+    .empty-state h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 900; margin-bottom: 0.5rem; }
+    .empty-state p { color: var(--text-light); margin-bottom: 1.5rem; }
+
+    /* FOOTER */
+    .footer { background: #1E293B; border-top: 3px solid var(--border); padding: 28px 20px; margin-top: 40px; }
+    .footer-bottom { text-align: center; color: rgba(255,255,255,0.5); font-size: 0.75rem; }
+
+    @supports (padding: max(0px)) {
+      body { padding-top: calc(60px + env(safe-area-inset-top)); }
+      .navbar { height: calc(60px + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); }
+      @media (min-width: 769px) {
+        body { padding-top: calc(80px + env(safe-area-inset-top)); }
+        .navbar { height: calc(80px + env(safe-area-inset-top)); }
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <div class="logo-image-container">
+          <img src="../image/logo.jpg" alt="GivaStore" class="logo-image"
+               onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-bolt\' style=\'color:white;font-size:16px\'></i>'">
+        </div>
+        <div class="logo-text">
+          <div class="logo-main">GIVA<span>STORE</span></div>
+          <div class="logo-sub">APP PREMS</div>
+        </div>
+      </a>
+    </div>
+  </nav>
+
+  <div class="main-container" id="mainContainer">
+    <div style="text-align:center;padding:60px 20px;">
+      <div class="loading-spinner"></div>
+      <p style="color:var(--text-light);font-weight:600;">Memuat detail pembayaran...</p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>&copy; <span id="currentYear"></span> GivaStore App Prems. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // ===================== CONFIG =====================
+    const PAKASIR_PROJECT = 'givastore';
+    const PAKASIR_API_KEY  = '1SgX6s8Ve5y1IbG5SsmMYwwPgwazvGao'; // Ganti dengan API Key Pakasir Anda
+    const REDIRECT_URL     = 'https://givastore.biz.id/success';
+    const SUPABASE_URL     = 'https://bctssploewjorllwpwkx.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjdHNzcGxvZXdqb3JsbHdwd2t4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NjE2OTcsImV4cCI6MjA5MjQzNzY5N30.ZmCFZMNQKV-sDsNk41ueg23FvM4W21xmIWvzpoThJAs';
+    const TG_BOT   = '8298329168:AAHkncNR2LwSgqiNaA-KfwyyS-7JRf1GgCY';
+    const TG_CHAT  = '7604853514';
+
+    // ===================== PAYMENT METHODS =====================
+    const PAYMENT_METHODS = [
+      { id: 'qris',           name: 'QRIS',           desc: 'Scan QR code',          icon: 'fa-qrcode',    color: '#F97316', type: 'qris' },
+      { id: 'bri_va',         name: 'BRI Virtual',    desc: 'Transfer VA BRI',        icon: 'fa-university',color: '#003087', type: 'va' },
+      { id: 'bni_va',         name: 'BNI Virtual',    desc: 'Transfer VA BNI',        icon: 'fa-university',color: '#F37021', type: 'va' },
+      { id: 'permata_va',     name: 'Permata VA',     desc: 'Transfer VA Permata',    icon: 'fa-university',color: '#0072CE', type: 'va' },
+      { id: 'cimb_niaga_va',  name: 'CIMB Niaga',     desc: 'Transfer VA CIMB',       icon: 'fa-university',color: '#D71921', type: 'va' },
+      { id: 'bca_va',         name: 'BCA Virtual',    desc: 'Transfer VA BCA',        icon: 'fa-university',color: '#006CB7', type: 'va' },
+      { id: 'maybank_va',     name: 'Maybank VA',     desc: 'Transfer VA Maybank',    icon: 'fa-university',color: '#FFCC00', type: 'va' },
+      { id: 'sampoerna_va',   name: 'Sampoerna VA',   desc: 'Transfer VA Sampoerna',  icon: 'fa-university',color: '#E31837', type: 'va' },
+      { id: 'bnc_va',         name: 'Neo Commerce',   desc: 'Transfer VA BNC',        icon: 'fa-university',color: '#7C3AED', type: 'va' },
+      { id: 'artha_graha_va', name: 'Artha Graha',    desc: 'Transfer VA Artha Graha',icon: 'fa-university',color: '#059669', type: 'va' },
+      { id: 'atm_bersama_va', name: 'ATM Bersama',    desc: 'Via ATM Bersama',        icon: 'fa-credit-card',color:'#1E293B', type: 'va' },
+    ];
+
+    // ===================== STATE =====================
+    let order = null;
+    let selectedMethod = null;
+    let activeTransaction = null;
+    let pollInterval = null;
+    let countdownInterval = null;
+    let supabaseClient = null;
+    let expiredAt = null;
+    let totalExpiredSeconds = 0;
+
+    // ===================== INIT =====================
+    try { supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e) {}
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // ===================== UTILS =====================
+    function showToast(msg, duration = 3000) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), duration);
+    }
+
+    function formatRp(n) { return 'Rp ' + parseInt(n).toLocaleString('id-ID'); }
+    function formatTime(sec) {
+      if (sec <= 0) return '00:00';
+      const m = Math.floor(sec / 60).toString().padStart(2,'0');
+      const s = (sec % 60).toString().padStart(2,'0');
+      return m + ':' + s;
+    }
+
+    // ===================== TELEGRAM =====================
+    async function sendTelegram(msg) {
+      try {
+        await fetch('https://api.telegram.org/bot' + TG_BOT + '/sendMessage', {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ chat_id: TG_CHAT, text: msg, parse_mode: 'HTML' })
+        });
+      } catch(e) {}
+    }
+
+    // ===================== LOAD ORDER =====================
+    window.addEventListener('DOMContentLoaded', function() {
+      const p     = new URLSearchParams(window.location.search);
+      const saved = localStorage.getItem('ProductOrderData');
+
+      if (saved) {
+        order = JSON.parse(saved);
+      } else if (p.get('order_id') && p.get('amount')) {
+        order = {
+          order_id: p.get('order_id'),
+          product:  p.get('product') || 'Produk',
+          package:  p.get('package') || '-',
+          total:    parseInt(p.get('amount')),
+          price:    parseInt(p.get('amount')),
+          quantity: 1,
+          fullWhatsapp: p.get('wa') || '',
+          accountData: {}
+        };
+      }
+
+      if (order) renderStep1();
+      else renderEmpty();
+    });
+
+    // ===================== STEP 1: PILIH METODE =====================
+    function renderStep1() {
+      const c = document.getElementById('mainContainer');
+      const acc = Object.entries(order.accountData || {}).map(([k,v]) =>
+        `<div class="info-row"><span class="info-label">${k.toUpperCase()}</span><span class="info-value">${v}</span></div>`
+      ).join('');
+
+      c.innerHTML = `
+        ${stepIndicator(1)}
+
+        <div class="section-card reveal" style="animation-delay:0.05s">
+          <div class="card-title"><i class="fas fa-receipt"></i> Ringkasan Pesanan</div>
+          <div class="order-id-box">
+            <div class="order-id-label">ID PESANAN</div>
+            <div class="order-id-val">${order.order_id}</div>
+          </div>
+          <div class="info-row"><span class="info-label">Produk</span><span class="info-value">${order.product}</span></div>
+          <div class="info-row"><span class="info-label">Paket</span><span class="info-value">${order.package || '-'}</span></div>
+          <div class="info-row"><span class="info-label">Jumlah</span><span class="info-value">${order.quantity || 1} Pcs</span></div>
+          ${order.fullWhatsapp ? `<div class="info-row"><span class="info-label">WhatsApp</span><span class="info-value">${order.fullWhatsapp}</span></div>` : ''}
+          ${acc}
+          <div class="total-row">
+            <span class="total-label">Total Bayar</span>
+            <span class="total-val">${formatRp(order.total)}</span>
+          </div>
+        </div>
+
+        <div class="section-card reveal" style="animation-delay:0.12s">
+          <div class="card-title"><i class="fas fa-wallet"></i> Pilih Metode Pembayaran</div>
+          <div class="method-grid" id="methodGrid">
+            ${PAYMENT_METHODS.map(m => `
+              <div class="method-card" data-method="${m.id}" onclick="selectMethod('${m.id}')">
+                <div class="method-icon" style="background:${m.color}22;color:${m.color}">
+                  <i class="fas ${m.icon}"></i>
+                </div>
+                <div class="method-info">
+                  <div class="method-name">${m.name}</div>
+                  <div class="method-desc">${m.desc}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          <button class="btn btn-primary pulsing" id="btnBayar" disabled onclick="processPay()">
+            <i class="fas fa-lock"></i> Bayar Sekarang
+          </button>
+          <a href="../index.html" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Kembali ke Toko
+          </a>
+        </div>
+      `;
+      initReveal();
+    }
+
+    function selectMethod(id) {
+      selectedMethod = id;
+      document.querySelectorAll('.method-card').forEach(el => {
+        el.classList.toggle('selected', el.dataset.method === id);
+      });
+      const btn = document.getElementById('btnBayar');
+      if (btn) { btn.disabled = false; btn.classList.add('pulsing'); }
+    }
+
+    // ===================== STEP 2: PROSES PEMBAYARAN =====================
+    async function processPay() {
+      if (!selectedMethod) return;
+      const btn = document.getElementById('btnBayar');
+      btn.innerHTML = '<div style="width:20px;height:20px;border:2.5px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite"></div> Memproses...';
+      btn.disabled = true;
+      btn.classList.remove('pulsing');
+
+      try {
+        const res = await fetch(`/api/pakasir?path=transactioncreate/${selectedMethod}`, {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            project: PAKASIR_PROJECT,
+            order_id: order.order_id,
+            amount: order.total,
+            api_key: PAKASIR_API_KEY
+          })
+        });
+
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        if (!data.payment) throw new Error('Response tidak valid');
+
+        activeTransaction = data.payment;
+        expiredAt = new Date(activeTransaction.expired_at);
+
+        // Save to Supabase
+        if (supabaseClient) {
+          await supabaseClient.from('orders').upsert([{
+            order_id: order.order_id,
+            product_name: order.product,
+            package_name: order.package || order.product,
+            price: order.price,
+            quantity: order.quantity || 1,
+            total_amount: order.total,
+            customer_whatsapp: order.fullWhatsapp,
+            account_data: order.accountData || {},
+            payment_method: selectedMethod,
+            status: 'pending'
+          }]).catch(()=>{});
+        }
+
+        // Telegram
+        const method = PAYMENT_METHODS.find(m=>m.id===selectedMethod);
+        await sendTelegram(`<b>🔔 PEMBAYARAN DIBUAT</b>\n\n🆔 Order ID: <code>${order.order_id}</code>\n📦 Produk: <b>${order.product}</b>\n💰 Total: <b>${formatRp(activeTransaction.total_payment)}</b>\n💳 Metode: ${method?.name || selectedMethod}\n📱 WA: ${order.fullWhatsapp || '-'}\n⏰ Waktu: ${new Date().toLocaleString('id-ID')}`);
+
+        localStorage.removeItem('ProductOrderData');
+        renderStep2();
+      } catch(err) {
+        console.error(err);
+        showToast('❌ Gagal membuat transaksi: ' + err.message, 4000);
+        btn.innerHTML = '<i class="fas fa-lock"></i> Bayar Sekarang';
+        btn.disabled = false;
+        btn.classList.add('pulsing');
+      }
+    }
+
+    // ===================== RENDER STEP 2 =====================
+    function renderStep2() {
+      const c = document.getElementById('mainContainer');
+      const m = PAYMENT_METHODS.find(x => x.id === selectedMethod) || {};
+      const isQris = m.type === 'qris';
+      const expSec = Math.max(0, Math.floor((expiredAt - new Date()) / 1000));
+      totalExpiredSeconds = expSec;
+
+      c.innerHTML = `
+        ${stepIndicator(2)}
+
+        <div class="section-card" style="animation-delay:0.05s">
+          <div class="card-title"><i class="fas fa-${isQris ? 'qrcode' : 'university'}"></i> ${m.name || 'Pembayaran'}</div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px;">
+            <span class="status-badge status-pending" id="statusBadge">
+              <span class="polling-dot"></span> Menunggu Pembayaran
+            </span>
+            <span style="font-size:0.75rem;color:var(--text-light);font-weight:600;">
+              Total: <strong style="color:var(--blue)">${formatRp(activeTransaction.total_payment)}</strong>
+            </span>
+          </div>
+
+          ${isQris ? `
+            <div class="qr-wrapper">
+              <div class="qr-canvas-box">
+                <canvas id="qrCanvas"></canvas>
+              </div>
+              <div class="qr-amount">${formatRp(activeTransaction.total_payment)}</div>
+              <div class="qr-info">Scan dengan aplikasi dompet digital atau mobile banking</div>
+            </div>
+          ` : `
+            <div class="va-box">
+              <div class="va-label">NOMOR VIRTUAL ACCOUNT</div>
+              <div class="va-number" id="vaNumber">${activeTransaction.payment_number}</div>
+              <button class="va-copy-btn" onclick="copyVA()"><i class="fas fa-copy"></i> Salin Nomor</button>
+            </div>
+            <div class="info-row"><span class="info-label">Total Transfer</span>
+              <span class="info-value" style="color:var(--blue);font-size:1.1rem">${formatRp(activeTransaction.total_payment)}</span></div>
+            <p style="font-size:0.78rem;color:var(--text-light);margin-top:8px;padding:10px;background:var(--blue-light);border-radius:8px;border:1.5px solid var(--blue);">
+              ⚠️ Transfer tepat sesuai nominal di atas (termasuk kode unik)
+            </p>
+          `}
+
+          <div class="countdown-box" id="countdownBox">
+            <i class="fas fa-clock countdown-icon"></i>
+            <div class="countdown-text">
+              <div class="countdown-label">Batas waktu pembayaran</div>
+              <div class="countdown-time" id="countdownTime">${formatTime(expSec)}</div>
+              <div class="countdown-bar-track"><div class="countdown-bar" id="countdownBar" style="width:100%"></div></div>
+            </div>
+          </div>
+
+          <div style="font-size:0.78rem;color:var(--text-light);text-align:center;margin:4px 0 8px;display:flex;align-items:center;justify-content:center;gap:6px;">
+            <span class="polling-dot"></span> Mengecek status pembayaran otomatis...
+          </div>
+
+          <button class="btn btn-danger" id="btnCancel" onclick="cancelTransaction()">
+            <i class="fas fa-times-circle"></i> Batalkan Transaksi
+          </button>
+        </div>
+      `;
+
+      if (isQris) {
+        setTimeout(() => {
+          QRCode.toCanvas(document.getElementById('qrCanvas'), activeTransaction.payment_number, {
+            width: 220, margin: 1, color: { dark:'#1E293B', light:'#FFFFFF' }
+          }, err => { if(err) console.error(err); });
+        }, 100);
+      }
+
+      startCountdown(expSec);
+      startPolling();
+    }
+
+    // ===================== COUNTDOWN =====================
+    function startCountdown(totalSec) {
+      let remaining = totalSec;
+      clearInterval(countdownInterval);
+
+      countdownInterval = setInterval(() => {
+        remaining--;
+        const el = document.getElementById('countdownTime');
+        const bar = document.getElementById('countdownBar');
+        if (!el) { clearInterval(countdownInterval); return; }
+
+        el.textContent = formatTime(remaining);
+        if (bar && totalExpiredSeconds > 0) {
+          bar.style.width = Math.max(0, (remaining / totalExpiredSeconds * 100)) + '%';
+          if (remaining <= 60) bar.style.background = '#EF4444';
+          else if (remaining <= 180) bar.style.background = '#F59E0B';
+        }
+
+        if (remaining <= 0) {
+          clearInterval(countdownInterval);
+          stopPolling();
+          el.textContent = 'KEDALUWARSA';
+          if (bar) bar.style.width = '0%';
+          showToast('⏱ Waktu pembayaran habis', 4000);
+        }
+      }, 1000);
+    }
+
+    // ===================== POLLING STATUS =====================
+    function startPolling() {
+      stopPolling();
+      pollInterval = setInterval(checkStatus, 1000);
+    }
+
+    function stopPolling() {
+      if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+    }
+
+    async function checkStatus() {
+      if (!activeTransaction) return;
+      try {
+        const url = `/api/pakasir?path=transactiondetail&project=${PAKASIR_PROJECT}&amount=${order.total}&order_id=${order.order_id}&api_key=${PAKASIR_API_KEY}`;
+        const res = await fetch(url);
+        if (!res.ok) return;
+        const data = await res.json();
+        const status = data?.transaction?.status;
+
+        if (status === 'completed') {
+          stopPolling();
+          clearInterval(countdownInterval);
+          updateStatus('completed');
+          await sendTelegram(`<b>✅ PEMBAYARAN BERHASIL</b>\n\n🆔 Order ID: <code>${order.order_id}</code>\n📦 Produk: <b>${order.product}</b>\n💰 Total: <b>${formatRp(order.total)}</b>\n💳 Metode: ${PAYMENT_METHODS.find(m=>m.id===selectedMethod)?.name || selectedMethod}\n📱 WA: ${order.fullWhatsapp || '-'}\n⏰ Waktu: ${new Date().toLocaleString('id-ID')}`);
+          if (supabaseClient) {
+            await supabaseClient.from('orders').update({ status: 'completed' }).eq('order_id', order.order_id).catch(()=>{});
+          }
+          setTimeout(() => renderSuccess(), 1200);
+        }
+      } catch(e) {}
+    }
+
+    function updateStatus(status) {
+      const badge = document.getElementById('statusBadge');
+      if (!badge) return;
+      if (status === 'completed') {
+        badge.className = 'status-badge status-success';
+        badge.innerHTML = '<i class="fas fa-check-circle"></i> Pembayaran Diterima!';
+      }
+    }
+
+    // ===================== CANCEL =====================
+    async function cancelTransaction() {
+      const btn = document.getElementById('btnCancel');
+      if (!btn) return;
+      if (!confirm('Yakin ingin membatalkan transaksi ini?')) return;
+
+      btn.innerHTML = '<div style="width:18px;height:18px;border:2px solid rgba(239,68,68,0.3);border-top-color:var(--error);border-radius:50%;animation:spin 0.8s linear infinite"></div> Membatalkan...';
+      btn.disabled = true;
+
+      stopPolling();
+      clearInterval(countdownInterval);
+
+      try {
+        await fetch('/api/pakasir?path=transactioncancel', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            project: PAKASIR_PROJECT,
+            order_id: order.order_id,
+            amount: order.total,
+            api_key: PAKASIR_API_KEY
+          })
+        });
+      } catch(e) {}
+
+      if (supabaseClient) {
+        await supabaseClient.from('orders').update({ status: 'cancelled' }).eq('order_id', order.order_id).catch(()=>{});
+      }
+      await sendTelegram(`<b>❌ TRANSAKSI DIBATALKAN</b>\n\n🆔 Order ID: <code>${order.order_id}</code>\n📦 Produk: <b>${order.product}</b>\n💰 Total: <b>${formatRp(order.total)}</b>`);
+
+      showToast('Transaksi dibatalkan');
+      selectedMethod = null;
+      activeTransaction = null;
+      renderStep1();
+    }
+
+    // ===================== COPY VA =====================
+    function copyVA() {
+      const va = document.getElementById('vaNumber');
+      if (!va) return;
+      navigator.clipboard.writeText(va.textContent.trim()).then(() => {
+        showToast('✅ Nomor VA disalin!');
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = va.textContent.trim();
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+        showToast('✅ Nomor VA disalin!');
+      });
+    }
+
+    // ===================== SUCCESS SCREEN =====================
+    function renderSuccess() {
+      const c = document.getElementById('mainContainer');
+      c.innerHTML = `
+        ${stepIndicator(3)}
+        <div class="section-card" style="text-align:center;padding:2.5rem 1.5rem;">
+          <div class="success-icon"><i class="fas fa-check"></i></div>
+          <div class="success-title">Pembayaran Berhasil!</div>
+          <div class="success-sub">Pesanan Anda sedang diproses. Terima kasih telah berbelanja di GivaStore.</div>
+          <div class="order-id-box" style="margin-bottom:1.5rem;">
+            <div class="order-id-label">ID PESANAN</div>
+            <div class="order-id-val">${order.order_id}</div>
+          </div>
+          <div class="info-row"><span class="info-label">Produk</span><span class="info-value">${order.product}</span></div>
+          <div class="info-row"><span class="info-label">Total Bayar</span><span class="info-value" style="color:var(--success)">${formatRp(order.total)}</span></div>
+          ${order.fullWhatsapp ? `<div class="info-row"><span class="info-label">WhatsApp</span><span class="info-value">${order.fullWhatsapp}</span></div>` : ''}
+          <a href="${REDIRECT_URL}" class="btn btn-primary" style="margin-top:1.5rem;"><i class="fas fa-arrow-right"></i> Lihat Pesanan Saya</a>
+          <a href="../index.html" class="btn btn-secondary"><i class="fas fa-home"></i> Kembali ke Toko</a>
+        </div>
+      `;
+    }
+
+    // ===================== EMPTY =====================
+    function renderEmpty() {
+      document.getElementById('mainContainer').innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon"><i class="fas fa-exclamation-triangle"></i></div>
+          <h2>Pesanan Tidak Ditemukan</h2>
+          <p>Silakan pilih produk terlebih dahulu sebelum melakukan pembayaran.</p>
+          <a href="../index.html" class="btn btn-primary" style="max-width:280px;margin:0 auto;"><i class="fas fa-shopping-bag"></i> Pilih Produk</a>
+        </div>
+      `;
+    }
+
+    // ===================== STEP INDICATOR =====================
+    function stepIndicator(active) {
+      const steps = ['Pesanan','Pembayaran','Selesai'];
+      let html = '<div class="step-indicator">';
+      steps.forEach((s, i) => {
+        const n = i + 1;
+        const done = n < active;
+        const cur  = n === active;
+        html += `<div class="step-item">
+          <div class="step-circle ${done?'done':cur?'active':''}">
+            ${done ? '<i class="fas fa-check" style="font-size:0.75rem"></i>' : n}
+          </div>
+          <div class="step-label ${cur?'active':''}">${s}</div>
+        </div>`;
+        if (i < steps.length - 1) {
+          html += `<div class="step-line ${done?'done':''}"></div>`;
+        }
+      });
+      return html + '</div>';
+    }
+
+    // ===================== REVEAL =====================
+    function initReveal() {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }
+  </script>
+</body>
+</html>
