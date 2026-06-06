@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Konfirmasi Pembayaran | GIVASTORE.ID</title>
+  <meta name="description" content="Konfirmasi dan detail pesanan Anda">
+  <link rel="icon" href="../image/logo.jpg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --blue: #2563EB; --blue-dark: #1D4ED8; --blue-light: #DBEAFE;
+      --primary: #1E293B; --accent: #2563EB; --accent-light: #DBEAFE;
+      --text-dark: #1E293B; --text: #334155; --text-light: #64748B;
+      --light: #FFFFFF; --light-gray: #F1F5F9; --gray: #E2E8F0;
+      --border: #1E293B;
+      --shadow: 4px 4px 0px var(--border); --shadow-sm: 2px 2px 0px var(--border);
+      --radius: 14px; --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+      --error: #FF4757; --warning: #F5C535; --success: #22C55E;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;touch-action:manipulation}
+    @media(max-width:768px){html{font-size:15px}}
+    @media(max-width:480px){html{font-size:14px}}
+    body{background:#fff;color:var(--text);line-height:1.6;min-height:100vh;overflow-x:hidden;
+      border:3px solid var(--border);padding-top:60px;font-family:'Poppins',sans-serif;
+      position:relative;overflow-wrap:break-word}
+    @media(min-width:769px){body{background-image:radial-gradient(circle,rgba(0,0,0,.06) 1px,transparent 1px);
+      background-size:28px 28px;border-width:6px;padding-top:80px}}
+    @media(max-width:768px){body{border-width:3px}}
+    @media(max-width:480px){body{border-width:2px}}
+
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes popIn{0%{opacity:0;transform:scale(.75)}70%{transform:scale(1.05)}100%{opacity:1;transform:scale(1)}}
+    @keyframes ripple{to{transform:scale(4);opacity:0}}
+    @keyframes navbarIn{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.35)}50%{box-shadow:0 0 0 10px rgba(37,99,235,0)}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes successPop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .ripple-effect{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);
+      width:10px;height:10px;pointer-events:none;transform:scale(0);animation:ripple .55s linear}
+
+    /* NAVBAR */
+    .navbar{position:fixed;top:0;left:0;right:0;background:#fff;border-bottom:3px solid var(--border);
+      z-index:1000;height:60px;display:flex;align-items:center;
+      box-shadow:0 3px 0 var(--border);animation:navbarIn .4s ease both}
+    @media(min-width:769px){.navbar{height:80px;border-bottom-width:4px}}
+    @media(max-width:480px){.navbar{height:55px;border-bottom-width:2px}}
+    .nav-container{width:100%;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 15px}
+    .logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
+    .logo-image-container{position:relative;width:40px;height:40px;border:2px solid var(--border);
+      box-shadow:var(--shadow-sm);transform:rotate(-5deg);transition:var(--transition);
+      overflow:hidden;background:var(--blue);border-radius:10px;display:flex;align-items:center;justify-content:center}
+    .logo-image-container:hover{transform:rotate(0)}
+    @media(min-width:769px){.logo-image-container{width:50px;height:50px;border-width:3px}}
+    .logo-image{width:100%;height:100%;object-fit:cover}
+    .logo-text{display:flex;flex-direction:column}
+    .logo-main{font-size:1.2rem;font-weight:900;color:var(--border);line-height:1;letter-spacing:-.5px;font-family:'Cabinet Grotesk','Space Grotesk',sans-serif}
+    .logo-main span{color:var(--accent)}
+    .logo-sub{font-size:.6rem;font-weight:700;letter-spacing:2px;margin-top:2px;color:var(--blue-dark);text-transform:uppercase}
+
+    /* LAYOUT */
+    .main-container{max-width:760px;margin:36px auto;padding:0 15px;animation:fadeInUp .5s ease both .05s}
+    @media(max-width:480px){.main-container{margin:20px auto}}
+    .page-header{text-align:center;margin-bottom:2rem;animation:fadeInUp .5s ease both .1s}
+    .page-header h1{font-size:2rem;font-weight:900;color:var(--text-dark);font-family:'Cabinet Grotesk','Space Grotesk',sans-serif;letter-spacing:-.5px;margin-bottom:.4rem}
+    @media(max-width:480px){.page-header h1{font-size:1.5rem}}
+    .page-header p{color:var(--text-light);font-size:.9rem}
+
+    /* STATUS BADGE */
+    .status-badge{display:inline-flex;align-items:center;gap:8px;padding:.5rem 1.25rem;border-radius:50px;
+      font-weight:700;font-size:.85rem;margin-bottom:1.5rem;border:2.5px solid var(--warning);
+      background:rgba(245,197,53,.1);color:#a16207;box-shadow:var(--shadow-sm);font-family:'Space Grotesk',sans-serif}
+    .status-badge i{animation:spin 2s linear infinite}
+    .status-badge.success{border-color:var(--success);background:rgba(34,197,94,.1);color:#15803d}
+    .status-badge.success i{animation:successPop .5s ease both}
+
+    /* SECTION CARDS */
+    .section-card{background:var(--light);border:2.5px solid var(--border);border-radius:var(--radius);
+      padding:1.5rem;margin-bottom:1.5rem;box-shadow:var(--shadow-sm);transition:var(--transition);animation:fadeInUp .5s ease both}
+    .section-card:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow)}
+    .section-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid var(--border)}
+    .step-badge{background:var(--blue);color:#fff;width:32px;height:32px;border-radius:8px;display:flex;
+      align-items:center;justify-content:center;font-weight:800;border:2px solid var(--border);flex-shrink:0;
+      font-family:'Space Grotesk',sans-serif;box-shadow:var(--shadow-sm)}
+    .section-header h2{font-size:1.15rem;font-weight:800;color:var(--text-dark);font-family:'Space Grotesk',sans-serif}
+
+    /* ORDER ID */
+    .order-id-section{background:var(--light-gray);border:2px solid var(--border);border-radius:var(--radius);padding:1.25rem;text-align:center}
+    .order-id-value{font-family:'DM Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--blue);letter-spacing:2px;animation:popIn .5s ease both .2s}
+    @media(max-width:480px){.order-id-value{font-size:1.1rem;letter-spacing:1px}}
+
+    /* INFO ROWS */
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px dashed var(--gray);gap:1rem}
+    .info-row:last-child{border-bottom:none}
+    .info-label{color:var(--text-light);font-size:.9rem;flex-shrink:0}
+    .info-value{color:var(--text-dark);font-weight:700;text-align:right;word-break:break-all}
+
+    /* PRICE */
+    .price-breakdown{background:var(--light-gray);border:2px dashed var(--blue);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem}
+    .price-item{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;font-size:.95rem}
+    .price-item.total{border-top:2.5px solid var(--border);margin-top:.75rem;padding-top:.75rem}
+    .price-item.total strong{font-size:1rem;font-weight:800;color:var(--text-dark)}
+    .total-value{font-size:1.4rem;font-weight:900;color:var(--blue);font-family:'Space Grotesk',sans-serif}
+
+    /* BUTTONS */
+    .btn{display:flex;align-items:center;justify-content:center;gap:.6rem;padding:.9rem 1.5rem;
+      border-radius:var(--radius);font-weight:800;font-size:1rem;cursor:pointer;
+      transition:var(--transition);border:2.5px solid var(--border);box-shadow:var(--shadow);
+      font-family:'Space Grotesk',sans-serif;width:100%;margin-bottom:1rem;text-decoration:none;text-align:center}
+    .btn:active{transform:translate(2px,2px);box-shadow:var(--shadow-sm)}
+    .btn-primary{background:var(--blue);color:#fff}
+    .btn-primary:hover{background:var(--blue-dark);transform:translate(-2px,-2px);box-shadow:var(--shadow-lg)}
+    .btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:var(--shadow)}
+    .btn-secondary{background:var(--light);color:var(--text-dark)}
+    .btn-secondary:hover{background:var(--light-gray);transform:translate(-2px,-2px);box-shadow:var(--shadow-lg)}
+    .btn.pulsing{animation:pulse 1.5s ease infinite}
+
+    /* PAYMENT NOTICE */
+    .payment-notice{background:rgba(37,99,235,.05);border:1.5px solid var(--blue-light);border-radius:10px;
+      padding:1rem;font-size:.82rem;color:var(--text-light);line-height:1.6;margin-top:.5rem}
+
+    /* ── PAYMENT SCREEN ── */
+    .pay-header{text-align:center;margin-bottom:1.5rem}
+    .pay-amount{font-size:2.5rem;font-weight:900;color:var(--blue);font-family:'Space Grotesk',sans-serif;line-height:1}
+    @media(max-width:480px){.pay-amount{font-size:2rem}}
+    .pay-label{font-size:.85rem;color:var(--text-light);margin-top:.3rem}
+    .pay-method-badge{display:inline-flex;align-items:center;gap:6px;background:var(--blue-light);
+      border:2px solid var(--blue);border-radius:50px;padding:.3rem .9rem;font-weight:700;
+      font-size:.8rem;color:var(--blue);margin-top:.75rem;font-family:'Space Grotesk',sans-serif}
+
+    /* Countdown */
+    .countdown-wrap{display:flex;align-items:center;justify-content:center;gap:6px;
+      margin-bottom:1.25rem;font-family:'DM Mono',monospace;font-size:1.2rem;font-weight:700;color:var(--text-dark)}
+    .countdown-wrap i{color:var(--error);font-size:1rem}
+    #cdTimer.urgent{color:var(--error);animation:blink 1s step-start infinite}
+
+    /* QR Box */
+    .qr-box{display:flex;flex-direction:column;align-items:center;gap:1rem;
+      background:var(--light-gray);border:2.5px solid var(--border);border-radius:var(--radius);
+      padding:1.5rem;margin-bottom:1rem}
+    #qrTarget{display:flex;align-items:center;justify-content:center;min-height:180px}
+    #qrTarget img,#qrTarget canvas{border-radius:8px;display:block;max-width:100%;height:auto}
+
+    /* VA Number */
+    .va-box{background:var(--light-gray);border:2.5px dashed var(--blue);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;text-align:center}
+    .va-number{font-family:'DM Mono',monospace;font-size:1.6rem;font-weight:700;color:var(--blue);letter-spacing:3px;word-break:break-all}
+    @media(max-width:480px){.va-number{font-size:1.2rem;letter-spacing:1px}}
+    .va-bank{font-size:.8rem;color:var(--text-light);margin-top:.3rem}
+    .btn-copy{display:inline-flex;align-items:center;gap:6px;background:var(--blue-light);border:2px solid var(--blue);
+      border-radius:8px;padding:.45rem 1rem;font-size:.82rem;font-weight:700;color:var(--blue);
+      cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:var(--transition);margin-top:.6rem}
+    .btn-copy:hover{background:var(--blue);color:#fff}
+
+    /* Steps */
+    .pay-steps{background:var(--light-gray);border:2px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1rem}
+    .pay-steps ol{padding-left:1.2rem;color:var(--text);font-size:.85rem;line-height:1.8}
+    .pay-steps li{margin-bottom:.2rem}
+    .pay-steps strong{color:var(--blue)}
+
+    /* Cancel */
+    .btn-cancel{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;
+      background:none;border:2px dashed #cbd5e1;border-radius:var(--radius);padding:.7rem;
+      color:var(--text-light);font-size:.85rem;font-weight:600;cursor:pointer;
+      font-family:'Space Grotesk',sans-serif;transition:var(--transition);margin-top:.5rem}
+    .btn-cancel:hover{border-color:var(--error);color:var(--error)}
+
+    /* Success overlay */
+    .success-overlay{text-align:center;padding:2rem}
+    .success-icon{font-size:4rem;color:var(--success);animation:successPop .6s ease both}
+    .success-title{font-size:1.6rem;font-weight:900;color:var(--text-dark);margin-top:1rem;font-family:'Space Grotesk',sans-serif}
+    .success-sub{color:var(--text-light);margin-top:.5rem}
+
+    /* METHOD PICKER */
+    .method-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.75rem;margin-top:.75rem}
+    .method-card{background:var(--light);border:2.5px solid var(--border);border-radius:12px;
+      padding:.9rem;cursor:pointer;transition:var(--transition);display:flex;flex-direction:column;
+      align-items:center;gap:.5rem;box-shadow:var(--shadow-sm);text-align:center}
+    .method-card:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow);border-color:var(--blue)}
+    .method-card.selected{border-color:var(--blue);background:var(--blue-light);box-shadow:var(--shadow)}
+    .method-card.disabled{opacity:.45;cursor:not-allowed}
+    .method-card.disabled:hover{transform:none;box-shadow:var(--shadow-sm);border-color:var(--border)}
+    .method-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;
+      justify-content:center;font-size:1.2rem;border:2px solid var(--border)}
+    .method-name{font-weight:800;font-size:.82rem;color:var(--text-dark);font-family:'Space Grotesk',sans-serif}
+    .method-fee{font-size:.7rem;color:var(--text-light)}
+    .method-min{font-size:.68rem;color:var(--error);font-weight:600}
+
+    /* VA toggle */
+    .va-toggle-btn{background:var(--blue-light);border:2px solid var(--blue);border-radius:50px;
+      padding:3px 12px;font-size:.7rem;font-weight:800;cursor:pointer;color:var(--blue);
+      font-family:'Space Grotesk',sans-serif;transition:var(--transition)}
+
+    /* Fee preview */
+    .fee-preview{background:var(--light-gray);border:2px dashed var(--blue);border-radius:12px;
+      padding:1rem;margin-top:1rem;display:none}
+    .fee-preview.show{display:block}
+    .fee-row{display:flex;justify-content:space-between;font-size:.88rem;padding:.25rem 0}
+    .fee-row.total{border-top:2px solid var(--border);margin-top:.5rem;padding-top:.5rem;font-weight:800;font-size:1rem}
+
+    /* EMPTY */
+    .empty-state{text-align:center;padding:3rem 1rem}
+    .empty-state-icon{font-size:3rem;color:var(--warning);margin-bottom:1rem}
+    .empty-state h2{font-size:1.4rem;font-weight:800;color:var(--text-dark);margin-bottom:.5rem;font-family:'Space Grotesk',sans-serif}
+    .empty-state p{color:var(--text-light);margin-bottom:1.5rem}
+
+    /* FOOTER */
+    .site-footer{background:var(--primary);color:rgba(255,255,255,.6);text-align:center;padding:1.5rem 1rem;font-size:.8rem}
+    .site-footer a{color:rgba(255,255,255,.8);text-decoration:none;font-weight:600}
+    .site-footer a:hover{color:#fff}
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="../index.html" class="logo">
+      <div class="logo-image-container">
+        <img src="../image/logo.jpg" class="logo-image" alt="Logo" onerror="this.style.display='none';this.parentNode.innerHTML='<i class=\'fas fa-store\' style=\'color:#fff;font-size:1.2rem\'></i>'">
+      </div>
+      <div class="logo-text">
+        <div class="logo-main">GIVA<span>STORE</span></div>
+        <div class="logo-sub">App Prems</div>
+      </div>
+    </a>
+  </div>
+</nav>
+
+<div class="main-container">
+  <div id="MC"></div>
+</div>
+
+<footer class="site-footer">
+  <p>&copy; <span id="currentYear"></span> GivaStore App Prems. All rights reserved.</p>
+</footer>
+
+<!-- Supabase & QR -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+'use strict';
+
+// ── CONFIG ───────────────────────────────────────────
+var CFG = {
+  project:    'givastore',
+  apiKey:     '1SgX6s8Ve5y1IbG5SsmMYwwPgwazvGao',
+  successUrl: '/pages/success',
+  supaUrl:    'https://bctssploewjorllwpwkx.supabase.co',
+  supaKey:    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjdHNzcGxvZXdqb3JsbHdwd2t4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NjE2OTcsImV4cCI6MjA5MjQzNzY5N30.ZmCFZMNQKV-sDsNk41ueg23FvM4W21xmIWvzpoThJAs',
+  tgBot:      '8298329168:AAHkncNR2LwSgqiNaA-KfwyyS-7JRf1GgCY',
+  tgChat:     '7604853514'
+};
+
+var METHODS = [
+  {id:'qris',          name:'QRIS',        icon:'fa-qrcode',    bg:'#FFF7ED',ic:'#EA580C',type:'qris',  min:1000},
+  {id:'bri_va',        name:'BRI',         icon:'fa-landmark',  bg:'#EFF6FF',ic:'#1D4ED8',type:'va',    min:20000},
+  {id:'bni_va',        name:'BNI',         icon:'fa-landmark',  bg:'#FFF7ED',ic:'#F97316',type:'va',    min:20000},
+  {id:'permata_va',    name:'Permata',     icon:'fa-landmark',  bg:'#EFF6FF',ic:'#0284C7',type:'va',    min:20000},
+  {id:'cimb_niaga_va', name:'CIMB Niaga',  icon:'fa-landmark',  bg:'#FEF2F2',ic:'#DC2626',type:'va',    min:20000},
+  {id:'maybank_va',    name:'Maybank',     icon:'fa-landmark',  bg:'#FEFCE8',ic:'#CA8A04',type:'va',    min:20000},
+  {id:'bnc_va',        name:'Neo Commerce',icon:'fa-landmark',  bg:'#F5F3FF',ic:'#7C3AED',type:'va',    min:20000},
+  {id:'atm_bersama_va',name:'ATM Bersama', icon:'fa-credit-card',bg:'#F8FAFC',ic:'#475569',type:'va',   min:20000},
+  {id:'artha_graha_va',name:'Artha Graha', icon:'fa-landmark',  bg:'#F0FDF4',ic:'#15803D',type:'va',    min:20000},
+  {id:'sampoerna_va',  name:'Sampoerna',   icon:'fa-landmark',  bg:'#FEF2F2',ic:'#BE123C',type:'va',    min:20000},
+];
+
+// ── STATE ────────────────────────────────────────────
+var order    = null;
+var selMeth  = null;
+var txn      = null;
+var supa     = null;
+var payDone  = false;
+var cdTimer  = null;
+var pollTimer= null;
+var pollDelay= 5000;
+var expSec   = 0;
+
+var MC = document.getElementById('MC');
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+// ── SUPABASE INIT ────────────────────────────────────
+try {
+  supa = window.supabase.createClient(CFG.supaUrl, CFG.supaKey);
+  console.log('✅ Supabase OK');
+} catch(e) {
+  console.error('❌ Supabase gagal:', e);
+}
+
+// ── HELPERS ──────────────────────────────────────────
+function rp(n){ return 'Rp '+parseInt(n||0).toLocaleString('id-ID'); }
+function pad2(n){ return String(n).padStart(2,'0'); }
+
+function calcFee(m, amt) {
+  if (!m) return {fee:0,total:amt};
+  if (m.type==='qris') { var f=amt>105000?Math.round(amt*.01):Math.round(amt*.007)+310; return {fee:f,total:amt+f}; }
+  return {fee:3500,total:amt+3500};
+}
+
+function feeDesc(m) {
+  if (!m) return '';
+  return m.type==='qris' ? '0.7%+Rp310' : 'Admin Rp3.500';
+}
+
+function initReveal() {
+  var els = document.querySelectorAll('.reveal');
+  if (!window.IntersectionObserver) { els.forEach(function(e){e.classList.add('visible');}); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);} });
+  },{threshold:.1});
+  els.forEach(function(e){io.observe(e);});
+}
+
+function addRipple(el) {
+  if (!el) return;
+  el.style.position='relative'; el.style.overflow='hidden';
+  el.addEventListener('click',function(e){
+    var r=document.createElement('span'); r.className='ripple-effect';
+    var rect=el.getBoundingClientRect();
+    r.style.left=(e.clientX-rect.left-5)+'px'; r.style.top=(e.clientY-rect.top-5)+'px';
+    el.appendChild(r); setTimeout(function(){r.remove();},600);
+  });
+}
+
+async function sendTG(msg) {
+  try {
+    await fetch('https://api.telegram.org/bot'+CFG.tgBot+'/sendMessage',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:CFG.tgChat,text:msg,parse_mode:'HTML'})
+    });
+  } catch(e){}
+}
+
+// ── DB HELPERS ───────────────────────────────────────
+// Pakai kolom customer_whatsapp (sesuai tabel yang sudah ada)
+async function dbInsert() {
+  if (!supa||!order||!txn||!selMeth) return;
+  var payload = {
+    order_id:          order.order_id,
+    product_name:      order.product,
+    package_name:      order.package||order.product,
+    price:             order.price||order.total,
+    quantity:          order.quantity||1,
+    total_amount:      order.total,
+    fee_amount:        txn.fee||0,
+    total_payment:     txn.total_payment||order.total,
+    customer_whatsapp: order.fullWhatsapp||'',
+    account_data:      order.accountData||{},
+    payment_method:    selMeth.name,
+    status:            'pending',
+    created_at:        new Date().toISOString()
+  };
+  var r = await supa.from('orders').upsert([payload],{onConflict:'order_id'});
+  if (r.error) console.error('❌ DB insert:', r.error.message);
+  else         console.log('✅ DB insert pending OK');
+}
+
+async function dbUpdate(status) {
+  if (!supa||!order) return;
+  var r = await supa.from('orders').update({status:status}).eq('order_id',order.order_id);
+  if (r.error) console.error('❌ DB update:', r.error.message);
+  else         console.log('✅ DB update →', status);
+}
+
+// ── RENDER STEP 1 ────────────────────────────────────
+function renderStep1() {
+  payDone = false;
+  var accRows = Object.entries(order.accountData||{}).map(function(kv){
+    return '<div class="info-row"><span class="info-label">'+kv[0].toUpperCase()+'</span><span class="info-value">'+kv[1]+'</span></div>';
+  }).join('');
+
+  var qrisMethods = METHODS.filter(function(m){return m.type==='qris';});
+  var vaMethods   = METHODS.filter(function(m){return m.type!=='qris';});
+
+  function mkCard(m) {
+    var blocked = order.total < m.min;
+    return '<div class="method-card'+(blocked?' disabled':'')+'" data-id="'+m.id+'" onclick="pickMethod(\''+m.id+'\')">'+
+      '<div class="method-icon" style="background:'+m.bg+';color:'+m.ic+'"><i class="fas '+m.icon+'"></i></div>'+
+      '<div class="method-name">'+m.name+'</div>'+
+      '<div class="method-fee">'+feeDesc(m)+'</div>'+
+      (blocked?'<div class="method-min">Min.'+rp(m.min)+'</div>':'')+
+    '</div>';
+  }
+
+  MC.innerHTML =
+    '<div class="page-header"><h1>Konfirmasi Pesanan</h1><p>Periksa detail sebelum membayar</p></div>'+
+    '<div style="text-align:center"><div class="status-badge"><i class="fas fa-clock"></i> Menunggu Pembayaran</div></div>'+
+
+    '<div class="section-card reveal" style="animation-delay:.05s">'+
+      '<div class="section-header"><div class="step-badge">1</div><h2>ID Pesanan</h2></div>'+
+      '<div class="order-id-section"><div class="order-id-value">'+order.order_id+'</div>'+
+      '<p style="font-size:.8rem;color:var(--text-light);margin-top:8px;font-weight:600">Simpan ID ini untuk melacak pesanan</p></div>'+
+    '</div>'+
+
+    '<div class="section-card reveal" style="animation-delay:.12s">'+
+      '<div class="section-header"><div class="step-badge">2</div><h2>Detail Produk</h2></div>'+
+      '<div class="info-row"><span class="info-label">Nama Produk</span><span class="info-value">'+order.product+'</span></div>'+
+      '<div class="info-row"><span class="info-label">Paket</span><span class="info-value">'+(order.package||'-')+'</span></div>'+
+      '<div class="info-row"><span class="info-label">Jumlah</span><span class="info-value">'+(order.quantity||1)+' Pcs</span></div>'+
+    '</div>'+
+
+    '<div class="section-card reveal" style="animation-delay:.19s">'+
+      '<div class="section-header"><div class="step-badge">3</div><h2>Data Penerima</h2></div>'+
+      '<div class="info-row"><span class="info-label">No. WhatsApp</span><span class="info-value">'+(order.fullWhatsapp||'-')+'</span></div>'+
+      accRows+
+    '</div>'+
+
+    '<div class="section-card reveal" style="animation-delay:.26s">'+
+      '<div class="section-header"><div class="step-badge">4</div><h2>Pilih Metode Bayar</h2></div>'+
+      '<p style="font-size:.82rem;color:var(--text-light);margin-bottom:.75rem">Pilih metode pembayaran yang ingin digunakan</p>'+
+      '<div style="font-weight:800;font-size:.85rem;color:var(--text-dark);margin-bottom:.5rem">QRIS</div>'+
+      '<div class="method-grid">'+qrisMethods.map(mkCard).join('')+'</div>'+
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:1.25rem;margin-bottom:.5rem">'+
+        '<span style="font-weight:800;font-size:.85rem;color:var(--text-dark)">Virtual Account</span>'+
+        '<button class="va-toggle-btn" id="btnVA" onclick="toggleVA()"><i class="fas fa-chevron-down" id="vaChev"></i> Selengkapnya</button>'+
+      '</div>'+
+      '<div id="vaGrid" style="display:none"><div class="method-grid">'+vaMethods.map(mkCard).join('')+'</div></div>'+
+    '</div>'+
+
+    '<div class="section-card reveal" style="animation-delay:.33s">'+
+      '<div class="section-header"><div class="step-badge">5</div><h2>Rincian Biaya</h2></div>'+
+      '<div class="price-breakdown">'+
+        '<div class="price-item"><span>Harga Paket</span><span>'+rp((order.price||0)*(order.quantity||1))+'</span></div>'+
+        '<div id="feeRow" class="price-item" style="display:none"><span>Biaya Admin</span><span id="feeAmt"></span></div>'+
+        '<div class="price-item total"><strong>Total Pembayaran</strong><span id="totalAmt" class="total-value">'+rp(order.total)+'</span></div>'+
+      '</div>'+
+      '<button class="btn btn-primary pulsing" id="btnPay" disabled>'+
+        '<i class="fas fa-credit-card"></i> Pilih metode dulu'+
+      '</button>'+
+      '<a href="../index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali ke Toko</a>'+
+      '<div class="payment-notice"><p><i class="fas fa-info-circle"></i> Pembayaran diproses langsung di halaman ini tanpa redirect.</p></div>'+
+    '</div>';
+
+  initReveal();
+  addRipple(document.getElementById('btnPay'));
+  addRipple(document.querySelector('.btn-secondary'));
+  document.getElementById('btnPay').addEventListener('click', doCreate);
+}
+
+function toggleVA() {
+  var g=document.getElementById('vaGrid'), b=document.getElementById('btnVA'), c=document.getElementById('vaChev');
+  var open = g.style.display!=='none';
+  g.style.display = open?'none':'block';
+  if(c) c.className = open?'fas fa-chevron-down':'fas fa-chevron-up';
+  if(b) b.innerHTML = (open?'<i class="fas fa-chevron-down"></i> Selengkapnya':'<i class="fas fa-chevron-up"></i> Sembunyikan');
+}
+
+function pickMethod(id) {
+  var m = METHODS.find(function(x){return x.id===id;});
+  if (!m || order.total < m.min) return;
+  selMeth = m;
+  document.querySelectorAll('.method-card').forEach(function(el){
+    el.classList.toggle('selected', el.dataset.id===id);
+  });
+  var fc = calcFee(m, order.total);
+  var feeRow = document.getElementById('feeRow');
+  if (feeRow) { feeRow.style.display = fc.fee>0?'flex':'none'; }
+  var feeAmt = document.getElementById('feeAmt');
+  if (feeAmt) feeAmt.textContent = '+'+rp(fc.fee);
+  var totalAmt = document.getElementById('totalAmt');
+  if (totalAmt) totalAmt.textContent = rp(fc.total);
+  var btn = document.getElementById('btnPay');
+  if (btn) { btn.disabled=false; btn.innerHTML='<i class="fas fa-credit-card"></i> Bayar '+rp(fc.total)+' via '+m.name; }
+}
+
+// ── CREATE TRANSACTION ───────────────────────────────
+async function doCreate() {
+  if (!selMeth) return;
+  var btn = document.getElementById('btnPay');
+  btn.disabled=true; btn.classList.remove('pulsing');
+  btn.innerHTML='<div style="width:20px;height:20px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:inline-block"></div> Memproses...';
+
+  try {
+    var res = await fetch('/api/pakasir?path=transactioncreate/'+selMeth.id, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({project:CFG.project, order_id:order.order_id, amount:order.total, api_key:CFG.apiKey})
+    });
+    var body;
+    try { body = await res.json(); } catch(e){ throw new Error('Response tidak valid ('+res.status+')'); }
+    if (!res.ok) throw new Error(body&&body.message ? body.message : 'HTTP '+res.status);
+    if (!body.payment) throw new Error('Field payment tidak ada di response');
+
+    txn = body.payment;
+    expSec = Math.max(0, Math.floor((new Date(txn.expired_at)-Date.now())/1000));
+
+    // Simpan ke DB (pending)
+    await dbInsert();
+
+    // Kirim notif TG
+    var fc = calcFee(selMeth, order.total);
+    await sendTG('🔔 <b>PESANAN BARU (PENDING)</b>\n\n🆔 Order: <code>'+order.order_id+'</code>\n📦 Produk: <b>'+order.product+'</b>\n💰 Total: <b>'+rp(fc.total)+'</b>\n💳 Metode: '+selMeth.name+'\n📱 WA: '+(order.fullWhatsapp||'-')+'\n⏰ '+new Date().toLocaleString('id-ID'));
+
+    // Simpan session agar tidak hilang saat refresh
+    try { sessionStorage.setItem('PayStep', JSON.stringify({order:order, txn:txn, method:selMeth.id})); } catch(e){}
+    localStorage.removeItem('ProductOrderData');
+
+    renderPayScreen();
+
+  } catch(err) {
+    console.error('doCreate error:', err);
+    var errDiv = document.createElement('div');
+    errDiv.style.cssText='background:rgba(255,71,87,.1);border:2px solid var(--error);border-radius:12px;padding:12px 16px;margin-top:12px;font-size:.85rem;color:var(--error);font-weight:600';
+    errDiv.innerHTML='<i class="fas fa-exclamation-circle"></i> '+err.message;
+    var card = MC.querySelector('.section-card:last-child');
+    if (card) card.appendChild(errDiv);
+    btn.disabled=false; btn.classList.add('pulsing');
+    var fc = calcFee(selMeth, order.total);
+    btn.innerHTML='<i class="fas fa-credit-card"></i> Bayar '+rp(fc.total)+' via '+selMeth.name;
+  }
+}
+
+// ── RENDER PAY SCREEN ────────────────────────────────
+function renderPayScreen() {
+  payDone = false;
+  var isQris = selMeth.type==='qris';
+  var fc = calcFee(selMeth, order.total);
+  var remSec = Math.max(0, Math.floor((new Date(txn.expired_at)-Date.now())/1000));
+
+  var steps = isQris
+    ? '<ol><li>Buka aplikasi <strong>m-banking / dompet digital</strong> kamu</li><li>Pilih <strong>Scan QR</strong> atau <strong>QRIS</strong></li><li>Scan QR Code di atas</li><li>Konfirmasi pembayaran sebesar <strong>'+rp(fc.total)+'</strong></li><li>Tunggu konfirmasi otomatis</li></ol>'
+    : '<ol><li>Buka aplikasi <strong>m-banking '+selMeth.name+'</strong></li><li>Pilih menu <strong>Transfer / Virtual Account</strong></li><li>Masukkan nomor VA di atas</li><li>Masukkan nominal <strong>'+rp(fc.total)+'</strong></li><li>Konfirmasi & selesaikan pembayaran</li></ol>';
+
+  var payContent = isQris
+    ? '<div class="qr-box"><p style="font-size:.82rem;color:var(--text-light)">Scan dengan aplikasi m-banking atau dompet digital</p><div id="qrTarget"><div style="width:20px;height:20px;border:2.5px solid #e2e8f0;border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite"></div></div><p style="font-size:.75rem;color:var(--text-light)">QRIS berlaku untuk semua bank & e-wallet</p></div>'
+    : '<div class="va-box"><div class="va-bank">Nomor Virtual Account '+selMeth.name+'</div><div class="va-number" id="vaNum">'+(txn.payment_number||txn.va_number||'—')+'</div><button class="btn-copy" onclick="copyVA()"><i class="fas fa-copy"></i> Salin Nomor</button></div>';
+
+  MC.innerHTML =
+    '<div class="section-card reveal">'+
+      '<div class="pay-header">'+
+        '<div class="pay-amount">'+rp(fc.total)+'</div>'+
+        '<div class="pay-label">Total yang harus dibayar</div>'+
+        '<div class="pay-method-badge"><i class="fas '+selMeth.icon+'"></i> '+selMeth.name+'</div>'+
+      '</div>'+
+      '<div class="countdown-wrap"><i class="fas fa-hourglass-half"></i> <span id="cdTimer">--:--</span></div>'+
+      payContent+
+      '<div class="pay-steps">'+steps+'</div>'+
+      '<div style="text-align:center;margin-bottom:1rem">'+
+        '<div class="status-badge" id="statusBadge"><i class="fas fa-clock"></i> Menunggu Pembayaran</div>'+
+      '</div>'+
+      '<button class="btn-cancel" id="btnCancel" onclick="doCancel()"><i class="fas fa-times-circle"></i> Batalkan Pesanan</button>'+
+    '</div>';
+
+  initReveal();
+
+  // Generate QR
+  if (isQris) {
+    var qrStr = txn.qr_string||txn.qr||txn.payment_number||'';
+    var qrUrl = txn.qr_url||txn.qr_image||'';
+    var target = document.getElementById('qrTarget');
+    var sz = Math.min(220, Math.max(180, window.innerWidth-100));
+    if (target) {
+      if (qrUrl) {
+        target.innerHTML = '<img src="'+qrUrl+'" width="'+sz+'" height="'+sz+'" style="border-radius:8px" alt="QR QRIS">';
+      } else if (qrStr) {
+        try {
+          target.innerHTML = '';
+          new QRCode(target, {text:qrStr, width:sz, height:sz, colorDark:'#1e293b', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M});
+          var el = target.firstChild;
+          if (el) el.style.cssText='display:block;border-radius:8px;max-width:100%';
+        } catch(e) {
+          target.innerHTML = '<p style="color:var(--error);font-size:.82rem"><i class="fas fa-exclamation-triangle"></i> Gagal membuat QR: '+e.message+'</p>';
+        }
+      } else {
+        target.innerHTML = '<p style="color:var(--error);font-size:.82rem"><i class="fas fa-exclamation-triangle"></i> Data QR tidak tersedia</p>';
+      }
+    }
+  }
+
+  startCd(remSec);
+  startPoll();
+}
+
+// ── COUNTDOWN ────────────────────────────────────────
+function startCd(sec) {
+  if (cdTimer) clearInterval(cdTimer);
+  expSec = sec;
+  function tick() {
+    var el = document.getElementById('cdTimer');
+    if (!el) { clearInterval(cdTimer); return; }
+    if (expSec<=0) {
+      clearInterval(cdTimer);
+      el.textContent='Kadaluarsa';
+      el.classList.add('urgent');
+      stopPoll();
+      return;
+    }
+    var m=Math.floor(expSec/60), s=expSec%60;
+    el.textContent = pad2(m)+':'+pad2(s);
+    if (expSec<=60) el.classList.add('urgent'); else el.classList.remove('urgent');
+    expSec--;
+  }
+  tick();
+  cdTimer = setInterval(tick, 1000);
+}
+
+function stopCd(){ if(cdTimer){clearInterval(cdTimer);cdTimer=null;} }
+
+// ── COPY VA ──────────────────────────────────────────
+function copyVA(){
+  var el = document.getElementById('vaNum');
+  if (!el) return;
+  var txt = el.textContent.replace(/\s/g,'');
+  navigator.clipboard.writeText(txt).then(function(){
+    var btn = document.querySelector('.btn-copy');
+    if (btn){ btn.innerHTML='<i class="fas fa-check"></i> Tersalin!'; setTimeout(function(){btn.innerHTML='<i class="fas fa-copy"></i> Salin Nomor';},2000); }
+  }).catch(function(){});
+}
+
+// ── POLLING ──────────────────────────────────────────
+function startPoll(){ stopPoll(); pollDelay=5000; schedulePoll(); document.addEventListener('visibilitychange',onVis); }
+function stopPoll(){ if(pollTimer){clearTimeout(pollTimer);pollTimer=null;} document.removeEventListener('visibilitychange',onVis); }
+function onVis(){ if(document.hidden){if(pollTimer){clearTimeout(pollTimer);pollTimer=null;}}else{checkStatus();} }
+function schedulePoll(){ if(payDone||!txn||!order)return; pollTimer=setTimeout(checkStatus,pollDelay); }
+
+async function checkStatus(){
+  if(payDone||!txn||!order){stopPoll();return;}
+  try{
+    var res = await fetch('/api/pakasir?path=transactiondetail&project='+CFG.project+'&amount='+order.total+'&order_id='+order.order_id+'&api_key='+CFG.apiKey);
+    if(res.status===429){pollDelay=Math.min(pollDelay*2,60000);schedulePoll();return;}
+    if(!res.ok){schedulePoll();return;}
+    var data = await res.json();
+    pollDelay = Math.min(pollDelay+1000,15000);
+
+    if(data&&data.transaction&&data.transaction.status==='completed'){
+      payDone=true; stopPoll(); stopCd();
+
+      var badge=document.getElementById('statusBadge');
+      if(badge){badge.className='status-badge success';badge.innerHTML='<i class="fas fa-check-circle"></i> Pembayaran Diterima!';}
+
+      // Update DB → completed
+      await dbUpdate('completed');
+
+      await sendTG('✅ <b>PEMBAYARAN BERHASIL</b>\n\n🆔 Order: <code>'+order.order_id+'</code>\n📦 Produk: <b>'+order.product+'</b>\n💳 Metode: '+selMeth.name+'\n📱 WA: '+(order.fullWhatsapp||'-')+'\n⏰ '+new Date().toLocaleString('id-ID'));
+
+      try{ sessionStorage.removeItem('PayStep'); }catch(e){}
+
+      // Tampilkan sukses lalu redirect
+      setTimeout(function(){
+        MC.innerHTML='<div class="section-card"><div class="success-overlay">'+
+          '<div class="success-icon"><i class="fas fa-check-circle"></i></div>'+
+          '<div class="success-title">Pembayaran Berhasil!</div>'+
+          '<div class="success-sub">Pesanan kamu sedang diproses. Terima kasih!</div>'+
+        '</div></div>';
+
+        setTimeout(function(){
+          var url = CFG.successUrl
+            +'?order_id='+encodeURIComponent(order.order_id)
+            +'&product='+encodeURIComponent(order.product)
+            +'&total='+encodeURIComponent(txn.total_payment)
+            +'&method='+encodeURIComponent(selMeth.name)
+            +'&wa='+encodeURIComponent(order.fullWhatsapp||'');
+          window.location.replace(url);
+        },2000);
+      },500);
+      return;
+    }
+    schedulePoll();
+  }catch(e){
+    pollDelay=Math.min(pollDelay*2,30000); schedulePoll();
+  }
+}
+
+// ── CANCEL ───────────────────────────────────────────
+async function doCancel(){
+  if(!confirm('Batalkan pesanan ini?'))return;
+  stopPoll(); stopCd();
+  await dbUpdate('cancelled');
+  await sendTG('❌ <b>PESANAN DIBATALKAN</b>\n\n🆔 Order: <code>'+order.order_id+'</code>\n📦 '+order.product+'\n📱 WA: '+(order.fullWhatsapp||'-'));
+  try{ sessionStorage.removeItem('PayStep'); }catch(e){}
+  txn=null; selMeth=null;
+  renderStep1();
+}
+
+// ── BOOT ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){
+  var p = new URLSearchParams(location.search);
+  var saved = localStorage.getItem('ProductOrderData');
+  if (saved) { try{ order=JSON.parse(saved); }catch(e){} }
+  if (!order && p.get('order_id') && p.get('amount')) {
+    order = {
+      order_id:p.get('order_id'), product:p.get('product')||'Produk',
+      package:p.get('package')||'-', total:parseInt(p.get('amount')),
+      price:parseInt(p.get('amount')), quantity:1,
+      fullWhatsapp:p.get('wa')||'', accountData:{}
+    };
+  }
+
+  // Restore sesi jika refresh di halaman pembayaran
+  if (!txn) {
+    var step = null;
+    try{ step=JSON.parse(sessionStorage.getItem('PayStep')); }catch(e){}
+    if (step&&step.order&&step.txn) {
+      order  = step.order;
+      txn    = step.txn;
+      selMeth= METHODS.find(function(m){return m.id===step.method;})||null;
+      if (selMeth && new Date(txn.expired_at)>Date.now()) {
+        expSec = Math.floor((new Date(txn.expired_at)-Date.now())/1000);
+        renderPayScreen();
+        return;
+      }
+    }
+  }
+
+  if (order) renderStep1(); else renderEmpty();
+});
+
+function renderEmpty(){
+  MC.innerHTML='<div class="empty-state">'+
+    '<div class="empty-state-icon"><i class="fas fa-exclamation-triangle"></i></div>'+
+    '<h2>Pesanan Tidak Ditemukan</h2>'+
+    '<p>Silakan pilih produk terlebih dahulu sebelum melakukan pembayaran.</p>'+
+    '<a href="../index.html" class="btn btn-primary" style="max-width:280px;margin:0 auto"><i class="fas fa-shopping-bag"></i> Pilih Produk</a>'+
+  '</div>';
+}
+</script>
+</body>
+</html>
